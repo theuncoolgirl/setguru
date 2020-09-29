@@ -1,15 +1,18 @@
 const UPDATE_EMAIL_VALUE = 'setlistfm/auth/UPDATE_EMAIL_VALUE';
 const UPDATE_PASSWORD_VALUE = 'setlistfm/auth/UPDATE_PASSWORD_VALUE';
 const UPDATE_TOKEN_VALUE = 'setlistfm/auth/UPDATE_TOKEN_VALUE';
+const DELETE_TOKEN = 'setlistfm/auth/DELETE_TOKEN';
 
 const updateEmailValue = value => ({ type: UPDATE_EMAIL_VALUE, value });
 const updatePasswordValue = value => ({ type: UPDATE_PASSWORD_VALUE, value });
 const updateTokenValue = value => ({ type: UPDATE_TOKEN_VALUE, value });
+const deleteToken = () => ({ type: DELETE_TOKEN });
 
 export const actions = {
     updateEmailValue,
     updatePasswordValue,
-    updateTokenValue
+    updateTokenValue,
+    deleteToken
 };
 
 const tryLogin = () => {
@@ -38,9 +41,15 @@ const tryLogin = () => {
     };
 };
 
+const logout = () => (dispatch, getState) => {
+    window.localStorage.removeItem('SETLIST_TOKEN');
+    dispatch(deleteToken());
+}
+
 
 export const thunks = {
     tryLogin,
+    logout
 }
 
 const initialState = {
@@ -62,8 +71,13 @@ function reducer(state = initialState, action) {
         case UPDATE_TOKEN_VALUE:
             return {
                 ...state,
-                token: action.value,
-            };
+                token: action.value
+            }
+        case DELETE_TOKEN:
+            return {
+                ...state,
+                token: ''
+            }
         default:
             return state;
     }

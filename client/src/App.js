@@ -9,8 +9,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Homepage from './components/Homepage';
 import LoginForm from './components/LoginForm';
 import ProtectedRoute from './components/ProtectedRoute';
+import Navigation from './components/Navigation';
 // import SignupForm from './components/SignupForm';
-// import Navigation from './components/Navigation';
 // import Footer from './components/Footer';
 
 
@@ -53,7 +53,7 @@ function App(props) {
         <>
             <CssBaseline />
             <BrowserRouter>
-                {/* <Navigation /> */}
+                <Navigation />
                 <Container>
                     <div className={classes.root}>
                         <Switch>

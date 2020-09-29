@@ -48,7 +48,7 @@ const LoginForm = (props) => {
                         </div>
                         <div>
                             <Button className={classes.formItem} variant="contained" color="primary" onClick={props.tryLogin} >Submit</Button>
-                            {/* <Button className={classes.formItem} type="submit" variant="contained" color="primary">Submit</Button> */}
+                            {/* TODO: Link to Sign Up Page */}
                         </div>
                     </form>
                 </Paper>
