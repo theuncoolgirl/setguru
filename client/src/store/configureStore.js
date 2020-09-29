@@ -1,9 +1,13 @@
 //Refactored
 
 import { applyMiddleware, createStore, combineReducers, compose } from 'redux';
-import { thunk } from 'redux-thunk';
+import thunk from 'redux-thunk';
+import auth from './auth';
+import setlists from './setlists';
 
 const rootReducer = combineReducers({
+    auth,
+    setlists,
 });
 
 let storeEnhancer;

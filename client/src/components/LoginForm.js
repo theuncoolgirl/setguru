@@ -1,7 +1,8 @@
-import { token } from 'morgan';
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { actions, thunks } from '../store/auth';
 import { Redirect } from 'react-router-dom';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 import { Button, FormControl, Grid, Input, InputLabel, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -20,65 +21,34 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LoginForm = (props) => {
-    const [email, setEmail] = useState('demo@example.com');
-    const [password, setPassword] = useState('password');
-    const [currentUserId, setCurrentUserId] = useState('');
 
     const classes = useStyles();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const csrfToken = Cookies.get("XSRF-TOKEN");
-        const loginInfo = { email, password };
-        const response = await fetch(`api/session`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'CSRF-TOKEN': csrfToken
-            },
-            body: JSON.stringify(loginInfo),
-        });
-        if (response.ok) {
-            const { user } = await response.json();
-            props.updateUser(user.id);
-            setCurrentUserId(user.id)
-        }
-    }
-
-    const updateEmail = e => {
-        setEmail(e.target.value)
-    }
-
-    const updatePassword = e => {
-        setPassword(e.target.value)
-    }
-
-    if (currentUserId) {
+    if (props.token) {
         return <Redirect to="/" />;
     }
-
-
-
     return (
         <Grid container justify="center" spacing={3}>
             <Grid item xs={6}>
                 <Paper className={classes.paper}>
                     <h2>Login</h2>
-                    <form onSubmit={handleSubmit}>
+                    <form>
+                        {/* <form onSubmit={props.tryLogin} > */}
                         <div>
                             <FormControl className={classes.formItem}>
                                 <InputLabel htmlFor="email">Email:</InputLabel>
-                                <Input id="email" placeholder="Email" value={email} onChange={updateEmail} />
+                                <Input id="email" placeholder="Email" value={props.email || ''} onChange={props.updateEmailValue} />
                             </FormControl>
                         </div>
                         <div>
                             <FormControl className={classes.formItem}>
                                 <InputLabel htmlFor="password">Password:</InputLabel>
-                                <Input id="password" placeholder="Password" value={password} onChange={updatePassword} />
+                                <Input id="password" placeholder="Password" value={props.password || ''} onChange={props.updatePasswordValue} />
                             </FormControl>
                         </div>
                         <div>
-                            <Button className={classes.formItem} type="submit" variant="contained" color="primary">Submit</Button>
+                            <Button className={classes.formItem} variant="contained" color="primary" onClick={props.tryLogin} >Submit</Button>
+                            {/* <Button className={classes.formItem} type="submit" variant="contained" color="primary">Submit</Button> */}
                         </div>
                     </form>
                 </Paper>
@@ -87,4 +57,20 @@ const LoginForm = (props) => {
     )
 }
 
-export default LoginForm;
+const mapStateToProps = state => {
+    return {
+        email: state.auth.email,
+        password: state.auth.password,
+        token: state.auth.token
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        updateEmailValue: e => dispatch(actions.updateEmailValue(e.target.value)),
+        updatePasswordValue: e => dispatch(actions.updatePasswordValue(e.target.value)),
+        tryLogin: () => dispatch(thunks.tryLogin()),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

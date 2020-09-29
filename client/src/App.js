@@ -1,14 +1,18 @@
 // Refactored
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Container, CssBaseline } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
+import Homepage from './components/Homepage';
 import LoginForm from './components/LoginForm';
-import SignupForm from './components/SignupForm';
-import Navigation from './components/Navigation';
-import Footer from './components/Footer';
+import ProtectedRoute from './components/ProtectedRoute';
+// import SignupForm from './components/SignupForm';
+// import Navigation from './components/Navigation';
+// import Footer from './components/Footer';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,13 +25,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function App() {
+function App(props) {
     const classes = useStyles();
 
 
 
     // Check to see if there is a user logged in before loading the application
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
     // useEffect(() => {
     //     const loadUser = async () => {
     //         const res = await fetch("api/session");
@@ -49,22 +53,27 @@ function App() {
         <>
             <CssBaseline />
             <BrowserRouter>
-                <Navigation />
+                {/* <Navigation /> */}
                 <Container>
                     <div className={classes.root}>
                         <Switch>
-                            <Route path="/login" render={props => <LoginForm {...props} />} />
-                            <Route path="/signup" render={props => <SignupForm {...props} />} />
-                            <Route path="/">
-                                <h1>My Home Page</h1>
-                            </Route>
+                            <ProtectedRoute isLoggedIn={props.token} path="/" exact render={props => <Homepage {...props} />} />
+                            <Route path="/login" exact render={props => <LoginForm {...props} />} />
+                            {/* <Route path="/signup" render={props => <SignupForm {...props} />} /> */}
+
                         </Switch>
                     </div>
                 </Container>
-                <Footer />
+                {/* <Footer /> */}
             </BrowserRouter>
         </>
     );
 }
 
-export default App;
+const mapStateToProps = state => {
+    return {
+        token: state.auth.token,
+    };
+};
+
+export default connect(mapStateToProps)(App);
