@@ -103,4 +103,54 @@ Most data for the setlist.fm clone will be pulled from the setlist.fm API, but a
 - `/artists/${artistId}` Artist Detail Page [optional]
 
 ## Components
-TBD
+Components to be organized as follows:
+- Root
+    - App
+        - NavBar
+        - Main Component
+        - Footer
+
+The following components will render in between `NavBar` and `Footer` for their corresponding pages:
+- /
+    - Homepage
+
+- /login
+    - LoginForm
+
+- /signup
+    - SignupForm
+
+- /search?query=${searchTerm}
+    - SearchResults
+        - ArtistInfo
+        - Filters
+        - SeachResults
+            - Setlists
+                - Setlist
+            - Pagination
+
+- /setlists/${setlistId}
+    - SetlistDetailPage
+        - Date
+        - SetlistTitle
+        - SetlistDetails
+            - Songs
+            - AttendeeInfo
+        - CommentManager
+            - CommentForm
+            - Comments
+
+- /users/${userId}
+    - Profile
+        - UserDetails
+        - SeachResults
+            - Setlists
+                - Setlist
+            - Pagination
+
+## State Shape
+```
+{
+    loading: true
+}
+```
