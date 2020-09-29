@@ -1,5 +1,3 @@
-// Refactored
-
 import React from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -10,7 +8,7 @@ import Homepage from './components/Homepage';
 import LoginForm from './components/LoginForm';
 import ProtectedRoute from './components/ProtectedRoute';
 import Navigation from './components/Navigation';
-// import SignupForm from './components/SignupForm';
+import SignupForm from './components/SignupForm';
 // import Footer from './components/Footer';
 
 
@@ -59,7 +57,7 @@ function App(props) {
                         <Switch>
                             <ProtectedRoute isLoggedIn={props.token} path="/" exact render={props => <Homepage {...props} />} />
                             <Route path="/login" exact render={props => <LoginForm {...props} />} />
-                            {/* <Route path="/signup" render={props => <SignupForm {...props} />} /> */}
+                            <Route path="/signup" exact render={props => <SignupForm {...props} />} />
 
                         </Switch>
                     </div>

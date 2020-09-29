@@ -1,17 +1,20 @@
 const UPDATE_EMAIL_VALUE = 'setlistfm/auth/UPDATE_EMAIL_VALUE';
 const UPDATE_PASSWORD_VALUE = 'setlistfm/auth/UPDATE_PASSWORD_VALUE';
 const UPDATE_TOKEN_VALUE = 'setlistfm/auth/UPDATE_TOKEN_VALUE';
+const UPDATE_USERNAME_VALUE = 'setlistfm/auth/UPDATE_USERNAME_VALUE';
 const DELETE_TOKEN = 'setlistfm/auth/DELETE_TOKEN';
 
 const updateEmailValue = value => ({ type: UPDATE_EMAIL_VALUE, value });
 const updatePasswordValue = value => ({ type: UPDATE_PASSWORD_VALUE, value });
 const updateTokenValue = value => ({ type: UPDATE_TOKEN_VALUE, value });
+const updateUsernameValue = value => ({ type: UPDATE_USERNAME_VALUE, value });
 const deleteToken = () => ({ type: DELETE_TOKEN });
 
 export const actions = {
     updateEmailValue,
     updatePasswordValue,
     updateTokenValue,
+    updateUsernameValue,
     deleteToken
 };
 
@@ -19,7 +22,6 @@ const tryLogin = () => {
     return async (dispatch, getState) => {
         // get email and password from the state
         const { auth: { email, password } } = getState();
-        console.log(email, password);
         // AJAX call PUT request to check login information
         const response = await fetch('/api/session', {
             method: 'PUT',
@@ -31,7 +33,6 @@ const tryLogin = () => {
                 const data = await response.json();
                 dispatch(updateTokenValue(data.token));
                 window.localStorage.setItem('SETLIST_TOKEN', data.token);
-                console.log(data);
             } else {
                 console.error('Bad response');
             }
@@ -41,6 +42,30 @@ const tryLogin = () => {
     };
 };
 
+const trySignup = () => {
+    return async (dispatch, getState) => {
+        // get username, email, and password from the state
+        const { auth: { username, email, password } } = getState();
+        // AJAX call POST request to create new User
+        const response = await fetch('/api/users', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, email, password }),
+        });
+        try {
+            if (response.status >= 200 && response.status < 400) {
+                const data = await response.json();
+                console.log(data);
+                window.location.href = '/login';
+            } else {
+                console.error('Bad response');
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+}
+
 const logout = () => (dispatch, getState) => {
     window.localStorage.removeItem('SETLIST_TOKEN');
     dispatch(deleteToken());
@@ -49,6 +74,7 @@ const logout = () => (dispatch, getState) => {
 
 export const thunks = {
     tryLogin,
+    trySignup,
     logout
 }
 
@@ -72,6 +98,11 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 token: action.value
+            }
+        case UPDATE_USERNAME_VALUE:
+            return {
+                ...state,
+                username: action.value
             }
         case DELETE_TOKEN:
             return {
