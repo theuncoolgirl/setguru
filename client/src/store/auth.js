@@ -3,19 +3,22 @@ const UPDATE_PASSWORD_VALUE = 'setlistfm/auth/UPDATE_PASSWORD_VALUE';
 const UPDATE_TOKEN_VALUE = 'setlistfm/auth/UPDATE_TOKEN_VALUE';
 const UPDATE_USERNAME_VALUE = 'setlistfm/auth/UPDATE_USERNAME_VALUE';
 const DELETE_TOKEN = 'setlistfm/auth/DELETE_TOKEN';
+const POP_DEMO_USER = 'setlistfm/auth/POP_DEMO_USER'
 
 const updateEmailValue = value => ({ type: UPDATE_EMAIL_VALUE, value });
 const updatePasswordValue = value => ({ type: UPDATE_PASSWORD_VALUE, value });
 const updateTokenValue = value => ({ type: UPDATE_TOKEN_VALUE, value });
 const updateUsernameValue = value => ({ type: UPDATE_USERNAME_VALUE, value });
 const deleteToken = () => ({ type: DELETE_TOKEN });
+const popDemoUser = () => ({ type: POP_DEMO_USER });
 
 export const actions = {
     updateEmailValue,
     updatePasswordValue,
     updateTokenValue,
     updateUsernameValue,
-    deleteToken
+    deleteToken,
+    popDemoUser,
 };
 
 const tryLogin = () => {
@@ -108,6 +111,12 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 token: ''
+            }
+        case POP_DEMO_USER:
+            return {
+                ...state,
+                email: 'demo@example.com',
+                password: 'password'
             }
         default:
             return state;
