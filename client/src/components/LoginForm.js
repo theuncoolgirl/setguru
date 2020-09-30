@@ -41,11 +41,12 @@ const LoginForm = (props) => {
                         <div>
                             <FormControl className={classes.formItem}>
                                 <InputLabel htmlFor="password">Password:</InputLabel>
-                                <Input id="password" placeholder="Password" value={props.password || ''} onChange={props.updatePasswordValue} />
+                                <Input id="password" type='password' placeholder="Password" value={props.password || ''} onChange={props.updatePasswordValue} />
                             </FormControl>
                         </div>
                         <div>
                             <Button className={classes.formItem} variant="contained" color="primary" onClick={props.tryLogin} >Submit</Button>
+                            <Button className={classes.formItem} variant="contained" color="primary" onClick={props.popDemoUser} >Demo User</Button>
                             {/* TODO: Link to Sign Up Page */}
                         </div>
                     </form>
@@ -68,6 +69,7 @@ const mapDispatchToProps = dispatch => {
         updateEmailValue: e => dispatch(actions.updateEmailValue(e.target.value)),
         updatePasswordValue: e => dispatch(actions.updatePasswordValue(e.target.value)),
         tryLogin: () => dispatch(thunks.tryLogin()),
+        popDemoUser: () => dispatch(actions.popDemoUser()),
     };
 };
 
