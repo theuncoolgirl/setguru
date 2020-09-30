@@ -43,7 +43,7 @@ const LoginForm = (props) => {
                         <div>
                             <FormControl className={classes.formItem}>
                                 <InputLabel htmlFor="password">Password:</InputLabel>
-                                <Input id="password" placeholder="Password" value={props.password || ''} onChange={props.updatePasswordValue} />
+                                <Input id="password" type='password' placeholder="Password" value={props.password || ''} onChange={props.updatePasswordValue} />
                                 {/* TODO: Confirm Password */}
                                 {/* TODO: Password characters as dots */}
                             </FormControl>
