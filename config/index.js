@@ -10,5 +10,6 @@ module.exports = {
   jwtConfig: {
     secret: process.env.JWT_SECRET_KEY,
     expiresIn: process.env.JWT_EXPIRES_IN
-  }
+  },
+  setlistfmKey: process.env.REACT_APP_SETLISTFM_API_KEY
 };
