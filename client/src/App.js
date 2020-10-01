@@ -59,7 +59,7 @@ function App(props) {
                             <ProtectedRoute isLoggedIn={props.token} path="/" exact render={props => <Homepage {...props} />} />
                             <Route path="/login" exact render={props => <LoginForm {...props} />} />
                             <Route path="/signup" exact render={props => <SignupForm {...props} />} />
-                            <ProtectedRoute isLoggedIn={props.token} path="/search" exact render={props => <SearchResults {...props} />} />
+                            <ProtectedRoute isLoggedIn={props.token} path="/search/:query/:page" render={props => <SearchResults {...props} />} />
 
                         </Switch>
                     </div>
