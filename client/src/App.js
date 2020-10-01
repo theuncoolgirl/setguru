@@ -9,6 +9,7 @@ import LoginForm from './components/LoginForm';
 import ProtectedRoute from './components/ProtectedRoute';
 import Navigation from './components/Navigation';
 import SignupForm from './components/SignupForm';
+import SearchResults from './components/SearchResults';
 // import Footer from './components/Footer';
 
 
@@ -58,6 +59,7 @@ function App(props) {
                             <ProtectedRoute isLoggedIn={props.token} path="/" exact render={props => <Homepage {...props} />} />
                             <Route path="/login" exact render={props => <LoginForm {...props} />} />
                             <Route path="/signup" exact render={props => <SignupForm {...props} />} />
+                            <ProtectedRoute isLoggedIn={props.token} path="/search" exact render={props => <SearchResults {...props} />} />
 
                         </Switch>
                     </div>
