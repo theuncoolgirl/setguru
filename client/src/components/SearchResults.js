@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { actions, thunks } from '../store/search';
 // import { Button, TextField } from '@material-ui/core';
 // import { makeStyles } from '@material-ui/core/styles';
 // import { actions, thunks } from '../store/search';
@@ -20,6 +21,15 @@ import { connect } from 'react-redux';
 
 function SearchResults(props) {
     // const classes = useStyles();
+
+    useEffect(() => {
+        const searchQuery = props.match.params.query;
+        const page = props.match.params.page;
+        props.updateSearchValue(searchQuery);
+        props.updatePageNumber(page);
+        props.getSetlists(props.searchQuery, props.page);
+    }, []);
+
     return (
         <div>
             <h1>SearchResults Component</h1>
@@ -35,7 +45,7 @@ function SearchResults(props) {
                     {/* {gifUrls.map((url, i) => (
                         <img key={i} src={url} alt="gif" />
                     ))} */}
-                    {console.log(Object.entries(props.setlists))}
+                    {/* {console.log(Object.entries(props.setlists))} */}
                 </div>
             </div>
         </div>
@@ -46,7 +56,9 @@ function SearchResults(props) {
 
 const mapStateToProps = state => {
     return {
-        setlists: state.search.setlists.setlist
+        setlists: state.search.setlists.setlist,
+        searchQuery: state.search.searchQuery,
+        page: state.search.page,
     }
 }
 
@@ -54,7 +66,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        updateSearchValue: value => dispatch(actions.updateSearchValue(value)),
+        updatePageNumber: value => dispatch(actions.updatePageNumber(value)),
+        getSetlists: (query, page) => dispatch(thunks.getSetlists(query, page)),
     };
 };
 

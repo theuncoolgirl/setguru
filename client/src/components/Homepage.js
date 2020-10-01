@@ -21,27 +21,21 @@ const useStyles = makeStyles((theme) => ({
 
 function Homepage(props) {
     const classes = useStyles();
-
-    // console.log(props.setlists)
-    if (props.setlists) {
-        return <Redirect to={`/search`} />;
-    }
+    const searchQuery = encodeURIComponent(props.searchQuery);
 
     return (
         <div>
             <h1>Homepage Component</h1>
             <form className={classes.root} noValidate autoComplete="off">
                 <TextField id="searchBar" label="Artist, Venue, Location..." variant="outlined" onChange={props.updateSearchValue} />
-                <Button className={classes.formItem} variant="contained" color="primary" onClick={props.getSetlists} >Search</Button>
+                <Button className={classes.formItem} variant="contained" color="primary" onClick={() => window.location.href = `/search/${searchQuery}/1`}>Search</Button>
             </form>
         </div>
     );
 };
 
-
 const mapStateToProps = state => {
     return {
-        setlists: state.search.setlists,
         searchQuery: state.search.searchQuery,
     }
 }
@@ -50,7 +44,6 @@ const mapDispatchToProps = dispatch => {
     return {
         receiveSetlists: e => dispatch(actions.receiveSetlists(e.target.value)),
         updateSearchValue: e => dispatch(actions.updateSearchValue(e.target.value)),
-        getSetlists: () => dispatch(thunks.getSetlists()),
     };
 };
 
