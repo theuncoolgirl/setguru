@@ -23,16 +23,34 @@ function SearchResults(props) {
     return (
         <div>
             <h1>SearchResults Component</h1>
+            <div>
+                Artist Info
+            </div>
+            <div>
+                Filters
+            </div>
+            <div>
+                Search Results
+                <div>
+                    {/* {gifUrls.map((url, i) => (
+                        <img key={i} src={url} alt="gif" />
+                    ))} */}
+                    {console.log(Object.entries(props.setlists))}
+                </div>
+            </div>
         </div>
     );
 };
 
 
+
 const mapStateToProps = state => {
     return {
-
+        setlists: state.search.setlists.setlist
     }
 }
+
+
 
 const mapDispatchToProps = dispatch => {
     return {

@@ -24,7 +24,7 @@ function Homepage(props) {
 
     // console.log(props.setlists)
     if (props.setlists) {
-        return <Redirect to="/search" />;
+        return <Redirect to={`/search`} />;
     }
 
     return (

@@ -51,7 +51,7 @@ function reducer(state = initialState, action) {
         case RECEIVE_SETLISTS:
             return {
                 ...state,
-                setlists: action.value
+                setlists: action.value.results
             }
         default:
             return state;
