@@ -74,7 +74,6 @@ const logout = () => (dispatch, getState) => {
     dispatch(deleteToken());
 }
 
-
 export const thunks = {
     tryLogin,
     trySignup,
