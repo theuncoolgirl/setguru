@@ -12,39 +12,33 @@ export const actions = {
 const getSetlists = () => {
     return async (dispatch, getState) => {
         const { search: { searchQuery } } = getState();
+        const response = await fetch('/api/search', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ searchQuery }),
+        });
+        try {
+            if (response.status >= 200 && response.status < 400) {
+                const data = await response.json();
+                dispatch(receiveSetlists(data));
+                // TODO: REDIRECT TO SEARCH RESULTS PAGE
+                // window.location.href = '/search';
+                // TODO: THINK ABOUT MAKING SEARCH RESULTS DYNAMIC
+            } else {
+                console.error('Bad response');
+            }
+        } catch (e) {
+            console.error(e);
+        }
     }
 }
-
-// const trySignup = () => {
-//     return async (dispatch, getState) => {
-//         // get username, email, and password from the state
-//         const { auth: { username, email, password } } = getState();
-//         // AJAX call POST request to create new User
-//         const response = await fetch('/api/users', {
-//             method: 'POST',
-//             headers: { 'Content-Type': 'application/json' },
-//             body: JSON.stringify({ username, email, password }),
-//         });
-//         try {
-//             if (response.status >= 200 && response.status < 400) {
-//                 const data = await response.json();
-//                 console.log(data);
-//                 window.location.href = '/login';
-//             } else {
-//                 console.error('Bad response');
-//             }
-//         } catch (e) {
-//             console.error(e);
-//         }
-//     }
-// }
 
 export const thunks = {
     getSetlists
 }
 
 const initialState = {
-    setlists: {},
+    setlists: null,
 };
 
 function reducer(state = initialState, action) {
@@ -55,10 +49,10 @@ function reducer(state = initialState, action) {
                 searchQuery: action.value
             }
         case RECEIVE_SETLISTS:
-        // return {
-        //     ...state,
-        //     setlists
-        // }
+            return {
+                ...state,
+                setlists: action.value
+            }
         default:
             return state;
     }
