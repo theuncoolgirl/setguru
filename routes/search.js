@@ -28,9 +28,9 @@ const searchResults = (searchTerm, page = 1) => {
 // searchResults(`The Flatliners`, `2`);
 
 router.put('/', handler(async (req, res) => {
-    const { searchQuery } = req.body;
+    const { searchQuery, page } = req.body;
     if (searchQuery) {
-        const results = await searchResults(searchQuery)
+        const results = await searchResults(searchQuery, page)
         // console.log(results);
         return res.status(201).json({
             results,

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { actions, thunks } from '../store/search';
-import { Grid, Paper } from '@material-ui/core';
+import { Grid, Link, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-// import { actions, thunks } from '../store/search';
+import Pagination from './Pagination';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.text.secondary,
+        backgroundColor: '#1a1c2e'
     },
     formItem: {
         padding: theme.spacing(2)
@@ -21,18 +22,20 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchResults(props) {
     const classes = useStyles();
+    const page = props.match.params.page;
+
 
     useEffect(() => {
         const searchQuery = props.match.params.query;
-        const page = props.match.params.page;
         props.updateSearchValue(searchQuery);
         props.updatePageNumber(page);
-        props.getSetlists(props.searchQuery, props.page);
-    }, []);
+        props.getSetlists();
+    }, [page]);
 
     const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
     const setlists = Object.values(props.setlists);
+
     if (setlists[0]) {
         return (
             <div className={classes.root} style={{
@@ -50,19 +53,19 @@ function SearchResults(props) {
                                 <Paper key={setlist.id} id='single-result' variant="outlined" style={{ padding: 15, margin: 2 }}>
                                     <Grid container spacing={2}>
                                         <Grid item xs={2}>
-                                            <Paper elevation={0} style={{ backgroundColor: 'yellowgreen' }}>
+                                            <Paper elevation={0} style={{ backgroundColor: '#CD9337', color: "white" }}>
                                                 <div>{setlist.eventDate.split("").slice(0, 2).join("")}</div>
                                                 <div>{months[parseInt(setlist.eventDate.split("").slice(3, 5).join(""))]}</div>
                                                 <div>{setlist.eventDate.split("").slice(6).join("")}</div>
-                                                {console.log(setlist.eventDate.split(""))}
                                             </Paper>
                                         </Grid>
                                         <Grid item xs={10}>
-
+                                            {console.log(setlist)}
                                             <Paper elevation={0} variant='outlined'>
                                                 <div>
-                                                    {/* {console.log(setlist.artist.name)} */}
-                                                    {setlist.artist.name} at {setlist.venue.name}, {setlist.venue.city.name}, {setlist.venue.city.stateCode}, {setlist.venue.city.country.name}
+                                                    <Link href={`/setlist/${setlist.id}`} style={{ color: "#CD9337" }}>
+                                                        {setlist.artist.name} at {setlist.venue.name}, {setlist.venue.city.name}, {setlist.venue.city.stateCode}, {setlist.venue.city.country.name}
+                                                    </Link>
                                                 </div>
 
                                                 <div>
@@ -71,7 +74,7 @@ function SearchResults(props) {
                                                 <div>
                                                     {setlist.sets.set.length > 0 ? (
                                                         <div>
-                                                            {setlist.sets.set[0].song[0].name}, {setlist.sets.set[0].song[1].name}, {setlist.sets.set[0].song[2].name}, {setlist.sets.set[0].song[3].name}, {setlist.sets.set[0].song[4].name}, {setlist.sets.set[0].song[5].name} & more...
+                                                            {setlist.sets.set[0].song[0] && setlist.sets.set[0].song[0].name ? setlist.sets.set[0].song[0].name : null} {setlist.sets.set[0].song[1] && setlist.sets.set[0].song[1].name ? setlist.sets.set[0].song[1].name : null} {setlist.sets.set[0].song[2] && setlist.sets.set[0].song[2].name ? setlist.sets.set[0].song[2].name : null} {setlist.sets.set[0].song[3] && setlist.sets.set[0].song[3].name ? setlist.sets.set[0].song[3].name : null} {setlist.sets.set[0].song[4] && setlist.sets.set[0].song[4].name ? setlist.sets.set[0].song[4].name : null}
                                                         </div>
                                                     ) : null}
                                                 </div>
@@ -86,10 +89,11 @@ function SearchResults(props) {
                     <Grid item xs={3}>
                         <Paper className={classes.paper}>Filters</Paper>
                     </Grid>
-                    {/* {gifUrls.map((url, i) => (
-                        <img key={i} src={url} alt="gif" />
-                    ))} */}
-                    {/* {console.log(Object.entries(props.setlists))} */}
+                    <Grid item xs={9}>
+                        <Paper className={classes.paper}>
+                            <Pagination />
+                        </Paper>
+                    </Grid>
                 </Grid >
             </div >
         );
@@ -100,8 +104,6 @@ function SearchResults(props) {
     }
 };
 
-
-
 const mapStateToProps = state => {
     return {
         setlists: state.search.setlists.setlist,
@@ -110,13 +112,11 @@ const mapStateToProps = state => {
     }
 }
 
-
-
 const mapDispatchToProps = dispatch => {
     return {
         updateSearchValue: value => dispatch(actions.updateSearchValue(value)),
         updatePageNumber: value => dispatch(actions.updatePageNumber(value)),
-        getSetlists: (query, page) => dispatch(thunks.getSetlists(query, page)),
+        getSetlists: () => dispatch(thunks.getSetlists()),
     };
 };
 
