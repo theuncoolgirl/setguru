@@ -10,6 +10,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Navigation from './components/Navigation';
 import SignupForm from './components/SignupForm';
 import SearchResults from './components/SearchResults';
+import SetlistDetail from './components/SetlistDetail';
 // import Footer from './components/Footer';
 
 
@@ -47,7 +48,7 @@ function App(props) {
                             <Route path="/login" exact render={props => <LoginForm {...props} />} />
                             <Route path="/signup" exact render={props => <SignupForm {...props} />} />
                             <ProtectedRoute isLoggedIn={props.token} path="/search/:query/:page" render={props => <SearchResults {...props} />} />
-
+                            <ProtectedRoute isLoggedIn={props.token} path="/setlist/:setlistId" render={props => <SetlistDetail {...props} />} />
                         </Switch>
                     </div>
                 </Container>

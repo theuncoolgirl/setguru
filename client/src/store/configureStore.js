@@ -4,10 +4,12 @@ import { applyMiddleware, createStore, combineReducers, compose } from 'redux';
 import thunk from 'redux-thunk';
 import auth from './auth';
 import search from './search';
+import setlist from './setlist';
 
 const rootReducer = combineReducers({
     auth,
     search,
+    setlist
 });
 
 let storeEnhancer;

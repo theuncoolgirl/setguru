@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { actions, thunks } from '../store/search';
-import { Grid, Paper } from '@material-ui/core';
+import { Grid, Link, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Pagination from './Pagination';
 
@@ -24,12 +24,12 @@ function SearchResults(props) {
     const classes = useStyles();
     const page = props.match.params.page;
 
+
     useEffect(() => {
         const searchQuery = props.match.params.query;
         props.updateSearchValue(searchQuery);
         props.updatePageNumber(page);
         props.getSetlists(props.searchQuery, page);
-        console.log(page)
     }, [page]);
 
     const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -60,10 +60,12 @@ function SearchResults(props) {
                                             </Paper>
                                         </Grid>
                                         <Grid item xs={10}>
-
+                                            {console.log(setlist)}
                                             <Paper elevation={0} variant='outlined'>
                                                 <div>
-                                                    {setlist.artist.name} at {setlist.venue.name}, {setlist.venue.city.name}, {setlist.venue.city.stateCode}, {setlist.venue.city.country.name}
+                                                    <Link href={`/setlist/${setlist.id}`} style={{ color: "#CD9337" }}>
+                                                        {setlist.artist.name} at {setlist.venue.name}, {setlist.venue.city.name}, {setlist.venue.city.stateCode}, {setlist.venue.city.country.name}
+                                                    </Link>
                                                 </div>
 
                                                 <div>
