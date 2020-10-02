@@ -29,7 +29,7 @@ function SearchResults(props) {
         const searchQuery = props.match.params.query;
         props.updateSearchValue(searchQuery);
         props.updatePageNumber(page);
-        props.getSetlists(props.searchQuery, page);
+        props.getSetlists();
     }, [page]);
 
     const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -116,7 +116,7 @@ const mapDispatchToProps = dispatch => {
     return {
         updateSearchValue: value => dispatch(actions.updateSearchValue(value)),
         updatePageNumber: value => dispatch(actions.updatePageNumber(value)),
-        getSetlists: (query, page) => dispatch(thunks.getSetlists(query, page)),
+        getSetlists: () => dispatch(thunks.getSetlists()),
     };
 };
 

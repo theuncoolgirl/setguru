@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { actions, thunks } from '../store/auth';
+import { actions, thunks } from '../store/setlist';
 import { Button, FormControl, Grid, Input, InputLabel, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -22,6 +22,12 @@ const SetlistDetail = (props) => {
 
     const classes = useStyles();
 
+    useEffect(() => {
+        const setlistId = props.match.params.setlistId;
+        props.updateSetlistidValue(setlistId)
+        props.getSetlist(setlistId);
+    });
+
     return (
 
         <div>
@@ -33,18 +39,14 @@ const SetlistDetail = (props) => {
 
 const mapStateToProps = state => {
     return {
-        email: state.auth.email,
-        password: state.auth.password,
-        username: state.auth.username,
+        setlistId: state.setlist.setlistId,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateEmailValue: e => dispatch(actions.updateEmailValue(e.target.value)),
-        updatePasswordValue: e => dispatch(actions.updatePasswordValue(e.target.value)),
-        updateUsernameValue: e => dispatch(actions.updateUsernameValue(e.target.value)),
-        trySignup: () => dispatch(thunks.trySignup()),
+        updateSetlistidValue: value => dispatch(actions.updateSetlistidValue(value)),
+        getSetlist: () => dispatch(thunks.getSetlist()),
     };
 };
 
