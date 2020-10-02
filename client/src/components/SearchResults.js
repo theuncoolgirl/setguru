@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.text.secondary,
+        backgroundColor: '#1a1c2e'
     },
     formItem: {
         padding: theme.spacing(2)
@@ -21,17 +22,17 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchResults(props) {
     const classes = useStyles();
+    const page = props.match.params.page;
 
     useEffect(() => {
         const searchQuery = props.match.params.query;
-        const page = props.match.params.page;
         props.updateSearchValue(searchQuery);
         props.updatePageNumber(page);
-        props.getSetlists(props.searchQuery, props.page);
-    }, []);
+        props.getSetlists(props.searchQuery, page);
+        console.log(page)
+    }, [page]);
 
     const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-
 
     const setlists = Object.values(props.setlists);
 
@@ -52,7 +53,7 @@ function SearchResults(props) {
                                 <Paper key={setlist.id} id='single-result' variant="outlined" style={{ padding: 15, margin: 2 }}>
                                     <Grid container spacing={2}>
                                         <Grid item xs={2}>
-                                            <Paper elevation={0} style={{ backgroundColor: 'yellowgreen' }}>
+                                            <Paper elevation={0} style={{ backgroundColor: '#CD9337', color: "white" }}>
                                                 <div>{setlist.eventDate.split("").slice(0, 2).join("")}</div>
                                                 <div>{months[parseInt(setlist.eventDate.split("").slice(3, 5).join(""))]}</div>
                                                 <div>{setlist.eventDate.split("").slice(6).join("")}</div>
@@ -86,8 +87,12 @@ function SearchResults(props) {
                     <Grid item xs={3}>
                         <Paper className={classes.paper}>Filters</Paper>
                     </Grid>
+                    <Grid item xs={9}>
+                        <Paper className={classes.paper}>
+                            <Pagination />
+                        </Paper>
+                    </Grid>
                 </Grid >
-                <Pagination />
             </div >
         );
     } else {

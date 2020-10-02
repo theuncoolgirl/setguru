@@ -15,6 +15,7 @@ export const actions = {
 const getSetlists = () => {
     return async (dispatch, getState) => {
         const { search: { searchQuery, page } } = getState();
+        console.log("PAGE IN THUNK: ", page);
         const response = await fetch('/api/search', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },

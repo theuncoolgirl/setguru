@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { thunks } from '../store/auth';
-import { AppBar, Badge, Button, IconButton, InputBase, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Button, IconButton, InputBase, Link, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons/';
 import { fade, makeStyles } from '@material-ui/core/styles';
 
@@ -120,21 +120,23 @@ function Navigation(props) {
             <AppBar className={classes.appbar} position="static">
                 <Toolbar>
                     <Typography className={classes.title} variant="h6" noWrap>
-                        Setlist Guru
-          </Typography>
-                    <div className={classes.search}>
-                        {/* <div className={classes.searchIcon}>
+                        <Link underline="none" href="/" color="inherit">Setlist Guru</Link>
+                    </Typography>
+                    {window.location.pathname !== '/' ? (
+                        <div className={classes.search}>
+                            {/* <div className={classes.searchIcon}>
                             <SearchIcon />
                         </div> */}
-                        <InputBase
-                            placeholder="Search…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </div>
+                            <InputBase
+                                placeholder="Search…"
+                                classes={{
+                                    root: classes.inputRoot,
+                                    input: classes.inputInput,
+                                }}
+                                inputProps={{ 'aria-label': 'search' }}
+                            />
+                        </div>
+                    ) : null}
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
                         <div>
