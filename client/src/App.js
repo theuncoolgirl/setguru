@@ -15,7 +15,7 @@ import SearchResults from './components/SearchResults';
 
 const useStyles = makeStyles((theme) => ({
     base: {
-        backgroundColor: '#161618'
+        backgroundColor: '#06070B'
     },
     container: {
         maxWidth: '100%',

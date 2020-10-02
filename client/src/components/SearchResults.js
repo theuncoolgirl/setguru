@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { actions, thunks } from '../store/search';
 import { Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import Pagination from './Pagination';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,7 +32,9 @@ function SearchResults(props) {
 
     const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
+
     const setlists = Object.values(props.setlists);
+
     if (setlists[0]) {
         return (
             <div className={classes.root} style={{
@@ -68,7 +71,7 @@ function SearchResults(props) {
                                                 <div>
                                                     {setlist.sets.set.length > 0 ? (
                                                         <div>
-                                                            {setlist.sets.set[0].song[0].name}, {setlist.sets.set[0].song[1].name}, {setlist.sets.set[0].song[2].name}, {setlist.sets.set[0].song[3].name}, {setlist.sets.set[0].song[4].name}, {setlist.sets.set[0].song[5].name} & more...
+                                                            {setlist.sets.set[0].song[0] && setlist.sets.set[0].song[0].name ? setlist.sets.set[0].song[0].name : null} {setlist.sets.set[0].song[1] && setlist.sets.set[0].song[1].name ? setlist.sets.set[0].song[1].name : null} {setlist.sets.set[0].song[2] && setlist.sets.set[0].song[2].name ? setlist.sets.set[0].song[2].name : null} {setlist.sets.set[0].song[3] && setlist.sets.set[0].song[3].name ? setlist.sets.set[0].song[3].name : null} {setlist.sets.set[0].song[4] && setlist.sets.set[0].song[4].name ? setlist.sets.set[0].song[4].name : null}
                                                         </div>
                                                     ) : null}
                                                 </div>
@@ -84,6 +87,7 @@ function SearchResults(props) {
                         <Paper className={classes.paper}>Filters</Paper>
                     </Grid>
                 </Grid >
+                <Pagination />
             </div >
         );
     } else {

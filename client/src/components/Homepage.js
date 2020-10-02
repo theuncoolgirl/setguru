@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
             marginLeft: theme.spacing(3),
         },
     },
+    homepageTitle: {
+        color: 'white',
+    }
 }));
 
 function Homepage(props) {
@@ -58,10 +61,11 @@ function Homepage(props) {
                 <Typography className={classes.title} variant="h6" noWrap>Find setlists for your favorite artists</Typography>
                 <form className={classes.root} noValidate autoComplete="off">
                     <InputBase className={classes.search} id="searchBar" placeholder="  Artist, Venue, Location..." onChange={props.updateSearchValue} />
+                    {/* ToDO: disable enter key */}
                     <Button className={classes.formItem} variant="contained" color="primary" onClick={() => window.location.href = `/search/${searchQuery}/1`}>Search</Button>
                 </form>
             </div>
-            <h1>Homepage Component</h1>
+            <h1 className={classes.homepageTitle}>Homepage Component</h1>
 
         </div>
     );

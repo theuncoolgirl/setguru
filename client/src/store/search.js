@@ -37,7 +37,7 @@ const getSetlists = () => {
 }
 
 export const thunks = {
-    getSetlists
+    getSetlists,
 }
 
 const initialState = {
