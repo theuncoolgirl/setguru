@@ -6,6 +6,17 @@ import { AccountCircle } from '@material-ui/icons/';
 import { fade, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
+    appbar: {
+        background: 'linear-gradient(45deg, #000000 0%, #752625 35%, #CD9337 90%)',
+        // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
+    },
+    formItem: {
+        backgroundColor: fade(theme.palette.common.white, 0.15),
+        '&:hover': {
+            backgroundColor: fade(theme.palette.common.white, 0.25),
+        },
+        margin: 5
+    },
     grow: {
         flexGrow: 1,
     },
@@ -107,7 +118,7 @@ function Navigation(props) {
 
     return (
         <div className={classes.grow}>
-            <AppBar position="static">
+            <AppBar className={classes.appbar} position="static">
                 <Toolbar>
                     <Typography className={classes.title} variant="h6" noWrap>
                         Setlist Guru

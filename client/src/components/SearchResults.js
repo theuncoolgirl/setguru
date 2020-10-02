@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { actions, thunks } from '../store/search';
 import { Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-// import { actions, thunks } from '../store/search';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -54,14 +53,12 @@ function SearchResults(props) {
                                                 <div>{setlist.eventDate.split("").slice(0, 2).join("")}</div>
                                                 <div>{months[parseInt(setlist.eventDate.split("").slice(3, 5).join(""))]}</div>
                                                 <div>{setlist.eventDate.split("").slice(6).join("")}</div>
-                                                {console.log(setlist.eventDate.split(""))}
                                             </Paper>
                                         </Grid>
                                         <Grid item xs={10}>
 
                                             <Paper elevation={0} variant='outlined'>
                                                 <div>
-                                                    {/* {console.log(setlist.artist.name)} */}
                                                     {setlist.artist.name} at {setlist.venue.name}, {setlist.venue.city.name}, {setlist.venue.city.stateCode}, {setlist.venue.city.country.name}
                                                 </div>
 
@@ -86,10 +83,6 @@ function SearchResults(props) {
                     <Grid item xs={3}>
                         <Paper className={classes.paper}>Filters</Paper>
                     </Grid>
-                    {/* {gifUrls.map((url, i) => (
-                        <img key={i} src={url} alt="gif" />
-                    ))} */}
-                    {/* {console.log(Object.entries(props.setlists))} */}
                 </Grid >
             </div >
         );
@@ -100,8 +93,6 @@ function SearchResults(props) {
     }
 };
 
-
-
 const mapStateToProps = state => {
     return {
         setlists: state.search.setlists.setlist,
@@ -109,8 +100,6 @@ const mapStateToProps = state => {
         page: state.search.page,
     }
 }
-
-
 
 const mapDispatchToProps = dispatch => {
     return {

@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { Button, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { actions, thunks } from '../store/search';
+import { actions } from '../store/search';
+import { urlencoded } from 'express';
+// import Background from '../images/concert1.jpg'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
+        flexGrow: 1
     },
     paper: {
         padding: theme.spacing(2),
@@ -16,6 +17,10 @@ const useStyles = makeStyles((theme) => ({
     },
     formItem: {
         padding: theme.spacing(2)
+    },
+    hero: {
+        height: 350,
+        // backgroundImage: `url(${Background})`
     }
 }));
 
@@ -25,6 +30,9 @@ function Homepage(props) {
 
     return (
         <div>
+            <div className={classes.hero}>
+
+            </div>
             <h1>Homepage Component</h1>
             <form className={classes.root} noValidate autoComplete="off">
                 <TextField id="searchBar" label="Artist, Venue, Location..." variant="outlined" onChange={props.updateSearchValue} />
