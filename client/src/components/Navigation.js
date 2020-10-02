@@ -7,7 +7,7 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     appbar: {
-        background: 'linear-gradient(45deg, #000000 0%, #752625 35%, #CD9337 90%)',
+        background: 'linear-gradient(45deg, #000000 5%, #752625 45%, #CD9337 95%)',
     },
     formItem: {
         backgroundColor: fade(theme.palette.common.white, 0.15),
@@ -123,9 +123,9 @@ function Navigation(props) {
                         Setlist Guru
           </Typography>
                     <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            {/* <SearchIcon /> */}
-                        </div>
+                        {/* <div className={classes.searchIcon}>
+                            <SearchIcon />
+                        </div> */}
                         <InputBase
                             placeholder="Search…"
                             classes={{
