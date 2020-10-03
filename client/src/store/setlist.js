@@ -12,7 +12,6 @@ export const actions = {
 const getSetlist = () => {
     return async (dispatch, getState) => {
         const { setlist: { setlistId } } = getState();
-        console.log(setlistId);
         const response = await fetch('/api/setlist', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -36,7 +35,13 @@ export const thunks = {
 }
 
 const initialState = {
-    setlistId: null
+    setlistId: null,
+    setlist: {
+        setlistId: null,
+        setlistDetails: {
+            results: null
+        },
+    },
 };
 
 function reducer(state = initialState, action) {

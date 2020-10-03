@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { thunks } from '../store/auth';
 import { AppBar, Button, IconButton, InputBase, Link, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
-import { AccountCircle } from '@material-ui/icons/';
+// import { AccountCircle } from '@material-ui/icons/';
 import { fade, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -82,7 +82,6 @@ const useStyles = makeStyles((theme) => ({
 function Navigation(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
     const isMenuOpen = Boolean(anchorEl);
 
@@ -90,13 +89,8 @@ function Navigation(props) {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
-    };
-
     const handleMenuClose = () => {
         setAnchorEl(null);
-        handleMobileMenuClose();
     };
 
     const menuId = 'primary-search-account-menu';

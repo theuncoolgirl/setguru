@@ -22,15 +22,23 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchResults(props) {
     const classes = useStyles();
-    const page = props.match.params.page;
-
+    const {
+        updateSearchValue,
+        updatePageNumber,
+        getSetlists,
+        match: {
+            params: {
+                page, query
+            },
+        },
+    } = props;
 
     useEffect(() => {
-        const searchQuery = props.match.params.query;
-        props.updateSearchValue(searchQuery);
-        props.updatePageNumber(page);
-        props.getSetlists();
-    }, [page]);
+        const searchQuery = query;
+        updateSearchValue(searchQuery);
+        updatePageNumber(page);
+        getSetlists();
+    }, [updateSearchValue, updatePageNumber, getSetlists, page, query]);
 
     const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
@@ -42,7 +50,7 @@ function SearchResults(props) {
                 paddingLeft: 30,
                 paddingRight: 30
             }}>
-                <h1>Search Results</h1>
+                <h1 style={{ color: "white" }}>Search Results</h1>
                 <Grid container spacing={3}>
                     <Grid item xs={3}>
                         <Paper className={classes.paper}>Artist Info</Paper>
@@ -60,7 +68,6 @@ function SearchResults(props) {
                                             </Paper>
                                         </Grid>
                                         <Grid item xs={10}>
-                                            {console.log(setlist)}
                                             <Paper elevation={0} variant='outlined'>
                                                 <div>
                                                     <Link href={`/setlist/${setlist.id}`} style={{ color: "#CD9337" }}>
