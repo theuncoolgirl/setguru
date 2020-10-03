@@ -12,7 +12,7 @@ const setlistfmClient = new setlistfm({
 });
 
 const setlistDetails = (setlistId) => {
-    return setlistfmClient.searchSetlists(setlistId)
+    return setlistfmClient.getSetlist(setlistId)
         .then(function (setlist) {
             return setlist;
         })

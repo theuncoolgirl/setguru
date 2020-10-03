@@ -12,7 +12,8 @@ export const actions = {
 const getSetlist = () => {
     return async (dispatch, getState) => {
         const { setlist: { setlistId } } = getState();
-        const response = await fetch('api/setlist', {
+        console.log(setlistId);
+        const response = await fetch('/api/setlist', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ setlistId }),

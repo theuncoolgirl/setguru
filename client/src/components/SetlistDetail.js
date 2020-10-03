@@ -21,12 +21,12 @@ const useStyles = makeStyles((theme) => ({
 const SetlistDetail = (props) => {
 
     const classes = useStyles();
+    const setlistId = props.match.params.setlistId;
 
     useEffect(() => {
-        const setlistId = props.match.params.setlistId;
         props.updateSetlistidValue(setlistId)
         props.getSetlist(setlistId);
-    });
+    }, [setlistId]);
 
     return (
 
