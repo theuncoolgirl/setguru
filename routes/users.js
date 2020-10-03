@@ -15,7 +15,6 @@ router.post(
         res.status(201).json({
             user: { id: user.id }
         });
-        // res.redirect('/login');
     }));
 
 module.exports = router;
