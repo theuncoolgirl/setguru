@@ -4,10 +4,9 @@ import { Button, Container, Grid, InputBase, Paper, Typography } from '@material
 import { fade, makeStyles } from '@material-ui/core/styles';
 import { actions } from '../store/search';
 import background from '../images/concert.jpg';
-import flatliners from '../images/flatliners.jpg';
+import flatliners from '../images/flatliners.png';
 import againstMe from '../images/againstMe.png';
 import pup from '../images/pup.jpg';
-// import pupGif from '../images/video2.gif';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,53 +40,10 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
-        backgroundImage: `url(${flatliners})`,
-        backgroundSize: "130%",
-        backgroundPosition: "60% 50%",
+        backgroundSize: "128%",
+        backgroundPosition: "50% 20%",
     },
-    flatliners: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-        height: 195,
-        width: 325,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        backgroundImage: `url(${flatliners})`,
-        backgroundSize: "130%",
-        backgroundPosition: "60% 50%",
-    },
-    againstMe: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-        height: 195,
-        width: 325,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        backgroundImage: `url(${againstMe})`,
-        backgroundSize: "100%",
-        backgroundPosition: "40% 5%",
-    },
-    pup: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-        height: 195,
-        width: 325,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        backgroundImage: `url(${pup})`,
-        backgroundSize: "125%",
-        backgroundPosition: "60% 50%",
-    },
-    title: {
+    searchTitle: {
         color: 'white',
         fontSize: "2em"
     },
@@ -105,9 +61,6 @@ const useStyles = makeStyles((theme) => ({
             marginLeft: theme.spacing(3),
         },
     },
-    homepageTitle: {
-        color: 'white',
-    }
 }));
 
 function Homepage(props) {
@@ -117,32 +70,30 @@ function Homepage(props) {
     return (
         <div>
             <div className={classes.hero}>
-                <Typography className={classes.title} variant="h6" noWrap>Find setlists for your favorite artists</Typography>
-                <form noValidate autoComplete="off">
+                <Typography className={classes.searchTitle} variant="h6" noWrap>Find setlists for your favorite artists</Typography>
+                <div>
                     <InputBase className={classes.search} id="searchBar" placeholder="  Artist, Venue, Location..." onChange={props.updateSearchValue} />
                     {/* ToDO: disable enter key */}
                     <Button className={classes.formItem} variant="contained" color="primary" onClick={() => window.location.href = `/search/${searchQuery}/1`}>Search</Button>
-                </form>
+                </div>
             </div>
             <Container>
                 <div>
-                    <Typography className={classes.homepageTitle} variant="h6" noWrap>Artists to Know</Typography>
+                    <Typography style={{ color: "white" }} variant="h6" noWrap>Artists to Know</Typography>
                 </div>
                 <Grid container justify="space-between" className={classes.root}>
                     <Grid item xs={3}>
-                        <Paper className={classes.flatliners} />
+                        <Paper className={classes.artist} style={{ backgroundImage: `url(${flatliners})` }} />
                     </Grid>
                     <Grid item xs={3}>
-                        <Paper className={classes.againstMe} />
+                        <Paper className={classes.artist} style={{ backgroundImage: `url(${againstMe})` }} />
                     </Grid>
                     <Grid item xs={3}>
-                        <Paper className={classes.pup} />
+                        <Paper className={classes.artist} style={{ backgroundImage: `url(${pup})` }} />
                     </Grid>
                 </Grid>
-                <h1 className={classes.homepageTitle}>Bottom</h1>
+                <Typography style={{ color: "white" }} variant="h6" noWrap>Bottom Section</Typography>
             </Container>
-
-
         </div>
     );
 };
