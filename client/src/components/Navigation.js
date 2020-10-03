@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { thunks } from '../store/auth';
 import { AppBar, Button, IconButton, InputBase, Link, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
-import { AccountCircle } from '@material-ui/icons/';
+// import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
+import SearchIcon from '@material-ui/icons/Search';
 import { fade, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -18,9 +19,6 @@ const useStyles = makeStyles((theme) => ({
     },
     grow: {
         flexGrow: 1,
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
     },
     title: {
         display: 'none',
@@ -82,7 +80,6 @@ const useStyles = makeStyles((theme) => ({
 function Navigation(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
     const isMenuOpen = Boolean(anchorEl);
 
@@ -90,13 +87,8 @@ function Navigation(props) {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
-    };
-
     const handleMenuClose = () => {
         setAnchorEl(null);
-        handleMobileMenuClose();
     };
 
     const menuId = 'primary-search-account-menu';
@@ -119,14 +111,14 @@ function Navigation(props) {
         <div className={classes.grow}>
             <AppBar className={classes.appbar} position="static">
                 <Toolbar>
-                    <Typography className={classes.title} variant="h6" noWrap>
+                    <Typography className={classes.title} variant="h6" noWrap href="/">
                         <Link underline="none" href="/" color="inherit">Setlist Guru</Link>
                     </Typography>
                     {window.location.pathname !== '/' ? (
                         <div className={classes.search}>
-                            {/* <div className={classes.searchIcon}>
-                            <SearchIcon />
-                        </div> */}
+                            <div className={classes.searchIcon}>
+                                <SearchIcon />
+                            </div>
                             <InputBase
                                 placeholder="Search…"
                                 classes={{
