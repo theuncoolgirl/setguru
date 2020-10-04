@@ -8,10 +8,10 @@ router.post(
     '/',
     // handleValidationErrors,
     handler(async (req, res) => {
-        const { userId, setListId } = req.body;
+        const { userId, setlistId } = req.body;
         const userSetlist = await Setlist.create({
             userId,
-            setListId,
+            setListId: setlistId,
             comments: "none",
             isStarred: false
         });
