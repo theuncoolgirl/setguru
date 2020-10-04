@@ -42,6 +42,18 @@ router.delete(
         });
         res.status(201)
     })
+);
+
+router.put(
+    '/comments/:setlistId',
+    handler(async (req, res) => {
+        const setListId = req.params.setlistId;
+        const comments = await Setlist.findAll({
+            attributes: 'comments',
+            where: { setListId }
+        });
+        res.status(201).json({ comments })
+    })
 )
 
 module.exports = router;
