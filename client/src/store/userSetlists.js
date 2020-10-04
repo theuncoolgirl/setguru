@@ -13,7 +13,7 @@ const createUserSetlist = () => {
     return async (dispatch, getState) => {
         const userId = localStorage.getItem("USERID");
         const { setlist: { setlistId } } = getState();
-        const response = await fetch('/api/setlist', {
+        const response = await fetch('/api/usersetlists', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

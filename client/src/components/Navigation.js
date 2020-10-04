@@ -61,10 +61,10 @@ function Navigation(props) {
                     ) : null}
                     <div className={classes.sectionDesktop}>
                         <div>
-                            <Button className={classes.formItemLite} variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={handleProfileMenuOpen}>Menu</Button>
+                            <Button className={classes.buttonLite} variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={handleProfileMenuOpen}>Menu</Button>
                         </div>
                         <div>
-                            <Button className={classes.formItemLite} variant="contained" color="primary" onClick={props.logout} >Logout</Button>
+                            <Button className={classes.buttonLite} variant="contained" color="primary" onClick={props.logout} >Logout</Button>
                         </div>
                         <IconButton
                             edge="end"

@@ -25,25 +25,43 @@ const useStyles = makeStyles((theme) => ({
     base: {
         backgroundColor: '#06070B'
     },
-    container: {
-        maxWidth: '100%',
-        margin: 0,
-        padding: 0,
-        flexGrow: 1,
-    },
-    formItem: {
+    button: {
         backgroundColor: fade(theme.palette.common.white, 0.35),
         '&:hover': {
             backgroundColor: fade(theme.palette.common.white, 0.50),
         },
         margin: 5,
     },
-    formItemLite: {
+    buttonLite: {
         backgroundColor: fade(theme.palette.common.white, 0.15),
         '&:hover': {
             backgroundColor: fade(theme.palette.common.white, 0.25),
         },
         margin: 5
+    },
+    container: {
+        maxWidth: '100%',
+        margin: 0,
+        padding: 0,
+        flexGrow: 1,
+    },
+    currentPage: {
+        backgroundColor: fade(theme.palette.common.white, 0.35),
+        '&:hover': {
+            backgroundColor: fade(theme.palette.common.white, 0.35),
+        },
+        cursor: "default",
+        margin: 5,
+        padding: 5,
+        minWidth: 35
+    },
+    dateBox: {
+        backgroundColor: '#CD9337',
+        color: "white",
+        width: 100
+    },
+    formItem: {
+        padding: theme.spacing(2)
     },
     grow: {
         flexGrow: 1,
@@ -71,6 +89,11 @@ const useStyles = makeStyles((theme) => ({
     inputRoot: {
         color: 'inherit',
     },
+    authForm: {
+        padding: theme.spacing(2),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+    },
     logo: {
         display: 'none',
         [theme.breakpoints.up('sm')]: {
@@ -91,6 +114,21 @@ const useStyles = makeStyles((theme) => ({
             marginLeft: theme.spacing(3),
             width: 'auto',
         },
+    },
+    pageButton: {
+        backgroundColor: fade(theme.palette.common.white, 0.15),
+        '&:hover': {
+            backgroundColor: fade(theme.palette.common.white, 0.25),
+        },
+        margin: 5,
+        padding: 5,
+        minWidth: 35
+    },
+    paper: {
+        padding: theme.spacing(2),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+        backgroundColor: '#1a1c2e'
     },
     search: {
         position: 'relative',

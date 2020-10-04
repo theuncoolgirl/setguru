@@ -18,7 +18,7 @@ function Homepage(props) {
                 <div>
                     <InputBase className={classes.search} id="searchBar" placeholder="  Artist, Venue, Location..." onChange={props.updateSearchValue} />
                     {/* ToDO: disable enter key */}
-                    <Button className={classes.formItem} variant="contained" color="primary" onClick={() => window.location.href = `/search/${searchQuery}/1`}>Search</Button>
+                    <Button className={classes.button} variant="contained" color="primary" onClick={() => window.location.href = `/search/${searchQuery}/1`}>Search</Button>
                 </div>
             </div>
             <Container>
