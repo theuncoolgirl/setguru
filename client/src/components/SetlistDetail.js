@@ -11,6 +11,7 @@ const SetlistDetail = (props) => {
     const {
         updateSetlistidValue,
         getSetlist,
+        userSetlists,
         match: {
             params: {
                 setlistId
@@ -20,7 +21,7 @@ const SetlistDetail = (props) => {
     useEffect(() => {
         updateSetlistidValue(setlistId)
         getSetlist(setlistId);
-    }, [setlistId, updateSetlistidValue, getSetlist]);
+    }, [setlistId, updateSetlistidValue, getSetlist, userSetlists]);
 
     if (props.setlist) {
         const setlist = props.setlist.results;
@@ -97,6 +98,7 @@ const mapStateToProps = state => {
     return {
         setlistId: state.setlist.setlistId,
         setlist: state.setlist.setlistDetails,
+        userSetlists: state.userSetlists,
     }
 }
 

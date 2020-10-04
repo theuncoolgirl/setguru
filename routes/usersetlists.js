@@ -18,4 +18,15 @@ router.post(
         res.status(201).json(userSetlist);
     }));
 
+router.get(
+    '/',
+    // handleValidationErrors,
+    handler(async (req, res) => {
+        const { userId } = req.body;
+        const userSetlist = await Setlist.findAll({
+            where: { userId }
+        });
+        res.status(201).json(userSetlist);
+    }));
+
 module.exports = router;
