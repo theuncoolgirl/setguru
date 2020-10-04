@@ -29,6 +29,20 @@ router.get(
         res.status(201).json({ userSetlist });
     }));
 
+router.put(
+    '/:userId/:setlistId',
+    handler(async (req, res) => {
+        const userId = req.params.userId;
+        const setListId = req.params.setlistId;
+        const { newComment } = req.body;
+        const setlist = await Setlist.findOne({
+            where: { userId, setListId }
+        });
+        await setlist.update({ comments: newComment });
+        res.status(201).json({ setlist });
+    })
+)
+
 router.delete(
     '/:userId/:setlistId',
     handler(async (req, res) => {
@@ -58,6 +72,8 @@ router.get(
         res.status(201).json({ comments })
     })
 )
+
+
 
 module.exports = router;
 

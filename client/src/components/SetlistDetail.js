@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { actions, thunks } from '../store/setlist';
 import { thunks as userSetlistsThunks } from '../store/userSetlists';
 import { actions as userSetlistsActions } from '../store/userSetlists';
-import { Accordion, AccordionDetails, AccordionSummary, Button, Grid, Paper, Typography } from '@material-ui/core';
+import { Accordion, AccordionDetails, AccordionSummary, Button, Grid, Paper, TextField, Typography } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import useStyles from '../styles.js';
 
@@ -81,16 +81,28 @@ const SetlistDetail = (props) => {
                                         <Button className={classes.buttonLite} variant="contained" color="primary" onClick={props.createUserSetlist}>+ I WAS THERE</Button> :
                                         <Button className={classes.buttonLite} variant="contained" color="primary" onClick={handleSetlistDelete}>- I WAS NOT THERE</Button>
                                     }
-                                    {/* TODO: Update onClick to delete setlist}
-                                    <Typography>THIS MANY Setlist Guru users were there</Typography>
+                                    {/* <Typography>THIS MANY Setlist Guru users were there</Typography>
                                     {/* TODO: Connect to total number users who have saved the setlist */}
                                 </div>
                             </Paper>
-                            <Paper className={classes.detailCard}>
-                                <div>
-                                    Comment Form
-                                </div>
-                            </Paper>
+                            {hasCurrentSetlist ?
+                                <Paper className={classes.detailCard}>
+                                    <div>
+                                        <Typography className={classes.accordionHeading}>New Comment</Typography>
+                                        <TextField id="filled-textarea"
+                                            label="Comment"
+                                            // placeholder="Placeholder"
+                                            multiline
+                                            rows={3}
+                                            className={classes.search}
+                                            variant="filled" />
+                                        <div>
+                                            <Button className={classes.button} variant="contained" color="primary">Add Comment</Button>
+                                        </div>
+                                        {/* <InputBase className={classes.search} id="searchBar" placeholder="  Artist, Venue, Location..." onChange={props.updateSearchValue} /> */}
+                                    </div>
+                                </Paper>
+                                : null}
                             <Paper className={classes.detailCard}>
                                 <Accordion className={classes.accordion}>
                                     <AccordionSummary
@@ -101,17 +113,25 @@ const SetlistDetail = (props) => {
                                     >
                                         <Typography className={classes.accordionHeading}>Comments</Typography>
                                     </AccordionSummary>
-                                    <AccordionDetails>
-                                        <Typography>
-                                            {/* Text */}
-                                            {props.comments ?
-                                                (<ul>
-                                                    {props.comments.map((comment, i) => (
-                                                        <li style={{ textAlign: "left" }} key={i}>{comment.comment} by {comment.username}</li>
-                                                    ))}
-                                                </ul>) : null}
-                                        </Typography>
-                                    </AccordionDetails>
+                                    {props.comments && props.comments.length > 0 ?
+                                        (<div>
+                                            {props.comments.map((comment, i) => (
+                                                <AccordionDetails key={i}>
+                                                    <Typography>
+                                                        <div>{comment.comment}</div>
+                                                        <div>{comment.username}</div>
+                                                    </Typography>
+                                                </AccordionDetails>
+                                            ))}
+                                        </div>) : (
+                                            <div>
+                                                <AccordionDetails>
+                                                    <Typography>
+                                                        No comments yet! Been to this show? Add your comment in the form above.
+                                                    </Typography>
+                                                </AccordionDetails>
+                                            </div>
+                                        )}
                                 </Accordion>
                             </Paper>
                         </Paper>
