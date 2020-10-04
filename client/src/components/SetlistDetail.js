@@ -97,14 +97,20 @@ const SetlistDetail = (props) => {
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
+                                        onClick={props.getComments}
                                     >
                                         <Typography className={classes.accordionHeading}>Comments</Typography>
                                     </AccordionSummary>
                                     <AccordionDetails>
                                         <Typography>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                                            sit amet blandit leo lobortis eget.
-          </Typography>
+                                            {/* Text */}
+                                            {props.comments ?
+                                                (<ul>
+                                                    {props.comments.map((comment, i) => (
+                                                        <li style={{ textAlign: "left" }} key={i}>{comment.comment} by {comment.username}</li>
+                                                    ))}
+                                                </ul>) : null}
+                                        </Typography>
                                     </AccordionDetails>
                                 </Accordion>
                             </Paper>
@@ -127,6 +133,7 @@ const mapStateToProps = state => {
         setlist: state.setlist.setlistDetails,
         userSetlists: state.userSetlists.userSetlists,
         hasCurrentSetlist: state.userSetlists.hasCurrentSetlist,
+        comments: state.userSetlists.comments,
     }
 }
 
@@ -139,6 +146,7 @@ const mapDispatchToProps = dispatch => {
         setlistCheck: () => dispatch(userSetlistsThunks.setlistCheck()),
         deleteSetlist: () => dispatch(userSetlistsThunks.deleteSetlist()),
         removeSetlist: () => dispatch(userSetlistsActions.removeSetlist()),
+        getComments: () => dispatch(userSetlistsThunks.getComments()),
     };
 };
 

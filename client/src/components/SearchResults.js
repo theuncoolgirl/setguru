@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { actions, thunks } from '../store/search';
-import { Grid, Link, Paper } from '@material-ui/core';
+import { Grid, Link, Paper, Typography } from '@material-ui/core';
 import useStyles from '../styles.js';
 import Pagination from './Pagination';
 
@@ -43,17 +43,17 @@ function SearchResults(props) {
                     <Grid item xs={9}>
                         <Paper id='search-results' className={classes.paper}>
                             {setlists.map((setlist) => (
-                                <Paper key={setlist.id} id='single-result' variant="outlined" style={{ padding: 15, margin: 2 }}>
+                                <Paper key={setlist.id} id='single-result' variant="outlined" style={{ padding: 15, margin: 2, backgroundColor: "#3E3F4D", color: "white" }}>
                                     <Grid container spacing={2}>
                                         <Grid item xs={2}>
-                                            <Paper elevation={0} style={{ backgroundColor: '#CD9337', color: "white" }}>
-                                                <div>{setlist.eventDate.split("").slice(0, 2).join("")}</div>
-                                                <div>{months[parseInt(setlist.eventDate.split("").slice(3, 5).join(""))]}</div>
-                                                <div>{setlist.eventDate.split("").slice(6).join("")}</div>
+                                            <Paper className={classes.dateBox} elevation={0} >
+                                                <Typography noWrap>{months[parseInt(setlist.eventDate.split("").slice(3, 5).join(""))]}</Typography>
+                                                <Typography style={{ fontSize: "2em", margin: 0 }} noWrap>{setlist.eventDate.split("").slice(0, 2).join("")}</Typography>
+                                                <Typography noWrap>{setlist.eventDate.split("").slice(6).join("")}</Typography>
                                             </Paper>
                                         </Grid>
                                         <Grid item xs={10}>
-                                            <Paper elevation={0} variant='outlined'>
+                                            <Paper elevation={0} variant='outlined' style={{ backgroundColor: "#3E3F4D", color: "white" }}>
                                                 <div>
                                                     <Link href={`/setlist/${setlist.id}`} style={{ color: "#CD9337" }}>
                                                         {setlist.artist.name} at {setlist.venue.name}, {setlist.venue.city.name}, {setlist.venue.city.stateCode}, {setlist.venue.city.country.name}

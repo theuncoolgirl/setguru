@@ -44,12 +44,15 @@ router.delete(
     })
 );
 
-router.put(
+router.get(
     '/comments/:setlistId',
     handler(async (req, res) => {
+        console.log("IN ROUTER")
         const setListId = req.params.setlistId;
         const comments = await Setlist.findAll({
-            attributes: 'comments',
+            include: [{
+                model: User
+            }],
             where: { setListId }
         });
         res.status(201).json({ comments })

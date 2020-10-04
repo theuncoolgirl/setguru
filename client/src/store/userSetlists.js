@@ -1,10 +1,12 @@
 const ADD_SETLIST = 'setlistfm/userSetlists/ADD_SETLIST';
 const REMOVE_SETLIST = 'setlistfm/userSetlists/REMOVE_SETLIST';
-const CHECK_SETLIST = 'setlistfm/userSetlists/CHECK_SETLIST'
+const CHECK_SETLIST = 'setlistfm/userSetlists/CHECK_SETLIST';
+const UPDATE_COMMENTS = 'setlistfm/userSetlists/UPDATE_COMMENTS';
 
-const addSetlist = (value) => ({ type: ADD_SETLIST, value })
-const removeSetlist = () => ({ type: REMOVE_SETLIST })
-const checkSetlist = (value) => ({ type: CHECK_SETLIST, value })
+const addSetlist = (value) => ({ type: ADD_SETLIST, value });
+const removeSetlist = () => ({ type: REMOVE_SETLIST });
+const checkSetlist = (value) => ({ type: CHECK_SETLIST, value });
+const updateComments = (value) => ({ type: UPDATE_COMMENTS, value });
 
 export const actions = {
     addSetlist,
@@ -78,11 +80,36 @@ const deleteSetlist = () => {
     };
 }
 
+const getComments = () => {
+    return async (dispatch, getState) => {
+        const { setlist: { setlistId } } = getState();
+        const response = await fetch(`/api/usersetlists/comments/${setlistId}`);
+        try {
+            if (response.status >= 200 && response.status < 400) {
+                console.log(response.body);
+                const data = await response.json();
+                const comments = data.comments.map(comment => {
+                    return {
+                        username: comment.User.username,
+                        comment: comment.comments
+                    }
+                })
+                dispatch(updateComments(comments));
+            } else {
+                console.error('Bad response');
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+}
+
 export const thunks = {
     createUserSetlist,
     getUserSetlists,
     setlistCheck,
-    deleteSetlist
+    deleteSetlist,
+    getComments
 }
 
 const initialState = {};
@@ -104,6 +131,11 @@ function reducer(state = initialState, action) {
                 ...state,
                 hasCurrentSetlist: action.value
             };
+        case UPDATE_COMMENTS:
+            return {
+                ...state,
+                comments: action.value
+            }
         default:
             return state;
     }
