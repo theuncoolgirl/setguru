@@ -3,12 +3,13 @@ const REMOVE_SETLIST = 'setlistfm/userSetlists/REMOVE_SETLIST';
 const CHECK_SETLIST = 'setlistfm/userSetlists/CHECK_SETLIST'
 
 const addSetlist = (value) => ({ type: ADD_SETLIST, value })
-const removeSetlist = (value) => ({ type: REMOVE_SETLIST, value })
+const removeSetlist = () => ({ type: REMOVE_SETLIST })
 const checkSetlist = (value) => ({ type: CHECK_SETLIST, value })
 
 export const actions = {
     addSetlist,
     removeSetlist,
+    checkSetlist
 };
 
 const createUserSetlist = () => {
@@ -38,9 +39,7 @@ const createUserSetlist = () => {
 }
 
 const getUserSetlists = async () => {
-    console.log("Beginning")
     const userId = localStorage.getItem("USERID");
-    console.log(userId);
     const response = await fetch(`/api/usersetlists/${userId}`)
     try {
         if (response.status >= 200 && response.status < 400) {
@@ -68,11 +67,22 @@ const setlistCheck = () => {
     }
 }
 
+const deleteSetlist = () => {
+    return async (dispatch, getState) => {
+        const userId = localStorage.getItem("USERID");
+        const { setlist: { setlistId } } = getState();
+        await fetch(`/api/usersetlists/${userId}/${setlistId}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+        });
+    };
+}
 
 export const thunks = {
     createUserSetlist,
     getUserSetlists,
-    setlistCheck
+    setlistCheck,
+    deleteSetlist
 }
 
 const initialState = {};
@@ -84,6 +94,11 @@ function reducer(state = initialState, action) {
                 ...state,
                 userSetlists: action.value
             };
+        case REMOVE_SETLIST:
+            return {
+                ...state,
+                userSetlists: null
+            }
         case CHECK_SETLIST:
             return {
                 ...state,

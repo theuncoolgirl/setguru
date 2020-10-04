@@ -2,6 +2,18 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import background from './images/concert.jpg';
 
 const useStyles = makeStyles((theme) => ({
+    accordion: {
+        backgroundColor: "#3e3f4d",
+        color: "white",
+        border: '1px solid rgba(0, 0, 0, .125)',
+    },
+    accordionHeading: {
+        fontSize: theme.typography.pxToRem(15),
+        fontWeight: theme.typography.fontWeightRegular,
+    },
+    accordionRoot: {
+        width: '100%',
+    },
     appbar: {
         background: 'linear-gradient(45deg, #000000 5%, #752625 45%, #CD9337 95%)',
     },
@@ -72,6 +84,11 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#CD9337',
         color: "white",
         width: 100
+    },
+    detailCard: {
+        margin: 15,
+        backgroundColor: "#3e3f4d",
+        color: "white",
     },
     formItem: {
         padding: theme.spacing(2)
