@@ -12,6 +12,8 @@ const SetlistDetail = (props) => {
         updateSetlistidValue,
         getSetlist,
         userSetlists,
+        setlistCheck,
+        hasCurrentSetlist,
         match: {
             params: {
                 setlistId
@@ -21,7 +23,8 @@ const SetlistDetail = (props) => {
     useEffect(() => {
         updateSetlistidValue(setlistId)
         getSetlist(setlistId);
-    }, [setlistId, updateSetlistidValue, getSetlist, userSetlists]);
+        setlistCheck();
+    }, [setlistId, updateSetlistidValue, getSetlist, userSetlists, setlistCheck, hasCurrentSetlist]);
 
     if (props.setlist) {
         const setlist = props.setlist.results;
@@ -64,8 +67,11 @@ const SetlistDetail = (props) => {
                                     </ol>
                                 </div>
                                 <div>
-                                    <Button className={classes.buttonLite} variant="contained" color="primary" onClick={props.createUserSetlist}>+ I WAS THERE</Button>
-                                    {/* TODO: Connect to CRUD, toggle button on/off */}
+                                    {!hasCurrentSetlist ?
+                                        <Button className={classes.buttonLite} variant="contained" color="primary" onClick={props.createUserSetlist}>+ I WAS THERE</Button> :
+                                        <Button className={classes.buttonLite} variant="contained" color="primary" onClick={props.getUserSetlists}>- I WAS NOT THERE</Button>
+                                    }
+                                    {/* TODO: Update onClick to delete setlist}
                                     <Typography>THIS MANY Setlist Guru users were there</Typography>
                                     {/* TODO: Connect to total number users who have saved the setlist */}
                                 </div>
@@ -98,7 +104,8 @@ const mapStateToProps = state => {
     return {
         setlistId: state.setlist.setlistId,
         setlist: state.setlist.setlistDetails,
-        userSetlists: state.userSetlists,
+        userSetlists: state.userSetlists.userSetlists,
+        hasCurrentSetlist: state.userSetlists.hasCurrentSetlist,
     }
 }
 
@@ -107,6 +114,8 @@ const mapDispatchToProps = dispatch => {
         updateSetlistidValue: value => dispatch(actions.updateSetlistidValue(value)),
         getSetlist: () => dispatch(thunks.getSetlist()),
         createUserSetlist: () => dispatch(userSetlistsThunks.createUserSetlist()),
+        getUserSetlists: () => dispatch(userSetlistsThunks.getUserSetlists()),
+        setlistCheck: () => dispatch(userSetlistsThunks.setlistCheck()),
     };
 };
 

@@ -19,14 +19,18 @@ router.post(
     }));
 
 router.get(
-    '/',
+    '/:userId',
     // handleValidationErrors,
     handler(async (req, res) => {
-        const { userId } = req.body;
+        console.log("In router");
+        const userId = req.params.userId;
+        console.log("USERID: ", userId);
         const userSetlist = await Setlist.findAll({
             where: { userId }
         });
-        res.status(201).json(userSetlist);
+        res.status(201).json({ userSetlist });
     }));
 
 module.exports = router;
+
+// `/api/usersetlists/${userId}`
