@@ -1,32 +1,9 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { actions, thunks } from '../store/setlist';
-import { Button, Grid, Paper, Typography } from '@material-ui/core';
-import { fade, makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-        backgroundColor: '#1a1c2e',
-    },
-    formItem: {
-        backgroundColor: fade(theme.palette.common.white, 0.15),
-        '&:hover': {
-            backgroundColor: fade(theme.palette.common.white, 0.25),
-        },
-        margin: 5
-    },
-    datebox: {
-        backgroundColor: '#CD9337',
-        color: "white",
-        width: 100
-    }
-}));
+import { thunks as userSetlistsThunks } from '../store/userSetlists';
+import { Button, Grid, Paper } from '@material-ui/core';
+import useStyles from '../styles.js';
 
 const SetlistDetail = (props) => {
     const classes = useStyles();
@@ -34,6 +11,9 @@ const SetlistDetail = (props) => {
     const {
         updateSetlistidValue,
         getSetlist,
+        userSetlists,
+        setlistCheck,
+        hasCurrentSetlist,
         match: {
             params: {
                 setlistId
@@ -43,7 +23,8 @@ const SetlistDetail = (props) => {
     useEffect(() => {
         updateSetlistidValue(setlistId)
         getSetlist(setlistId);
-    }, [setlistId, updateSetlistidValue, getSetlist]);
+        setlistCheck();
+    }, [setlistId, updateSetlistidValue, getSetlist, userSetlists, setlistCheck, hasCurrentSetlist]);
 
     if (props.setlist) {
         const setlist = props.setlist.results;
@@ -51,7 +32,7 @@ const SetlistDetail = (props) => {
         console.log(setlist);
         const songs = setlist.sets.set[0].song;
         return (
-            <div className={classes.root} style={{
+            <div className={classes.grow} style={{
                 paddingLeft: 30,
                 paddingRight: 30
             }}>
@@ -60,7 +41,7 @@ const SetlistDetail = (props) => {
                     <Grid item xs={8}>
                         <Paper id='setlist-info' className={classes.paper}>
                             <div style={{ display: "inline" }} id="setlist-title">
-                                <Paper id="datebox" className={classes.datebox} elevation={0}>
+                                <Paper id="datebox" className={classes.dateBox} elevation={0}>
                                     <div>{setlist.eventDate.split("").slice(0, 2).join("")}</div>
                                     <div>{months[parseInt(setlist.eventDate.split("").slice(3, 5).join(""))]}</div>
                                     <div>{setlist.eventDate.split("").slice(6).join("")}</div>
@@ -86,8 +67,11 @@ const SetlistDetail = (props) => {
                                     </ol>
                                 </div>
                                 <div>
-                                    <Button className={classes.formItem} variant="contained" color="primary" >+ I WAS THERE</Button>
-                                    {/* TODO: Connect to CRUD, toggle button on/off */}
+                                    {!hasCurrentSetlist ?
+                                        <Button className={classes.buttonLite} variant="contained" color="primary" onClick={props.createUserSetlist}>+ I WAS THERE</Button> :
+                                        <Button className={classes.buttonLite} variant="contained" color="primary" onClick={props.getUserSetlists}>- I WAS NOT THERE</Button>
+                                    }
+                                    {/* TODO: Update onClick to delete setlist}
                                     <Typography>THIS MANY Setlist Guru users were there</Typography>
                                     {/* TODO: Connect to total number users who have saved the setlist */}
                                 </div>
@@ -120,6 +104,8 @@ const mapStateToProps = state => {
     return {
         setlistId: state.setlist.setlistId,
         setlist: state.setlist.setlistDetails,
+        userSetlists: state.userSetlists.userSetlists,
+        hasCurrentSetlist: state.userSetlists.hasCurrentSetlist,
     }
 }
 
@@ -127,6 +113,9 @@ const mapDispatchToProps = dispatch => {
     return {
         updateSetlistidValue: value => dispatch(actions.updateSetlistidValue(value)),
         getSetlist: () => dispatch(thunks.getSetlist()),
+        createUserSetlist: () => dispatch(userSetlistsThunks.createUserSetlist()),
+        getUserSetlists: () => dispatch(userSetlistsThunks.getUserSetlists()),
+        setlistCheck: () => dispatch(userSetlistsThunks.setlistCheck()),
     };
 };
 

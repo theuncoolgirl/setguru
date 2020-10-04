@@ -1,87 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { thunks } from '../store/auth';
+import { actions } from '../store/search';
 import { AppBar, Button, IconButton, InputBase, Link, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
-// import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import SearchIcon from '@material-ui/icons/Search';
-import { fade, makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-    appbar: {
-        background: 'linear-gradient(45deg, #000000 5%, #752625 45%, #CD9337 95%)',
-    },
-    formItem: {
-        backgroundColor: fade(theme.palette.common.white, 0.15),
-        '&:hover': {
-            backgroundColor: fade(theme.palette.common.white, 0.25),
-        },
-        margin: 5
-    },
-    grow: {
-        flexGrow: 1,
-    },
-    title: {
-        display: 'none',
-        [theme.breakpoints.up('sm')]: {
-            display: 'block',
-        },
-    },
-    search: {
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: fade(theme.palette.common.white, 0.15),
-        '&:hover': {
-            backgroundColor: fade(theme.palette.common.white, 0.25),
-        },
-        marginRight: theme.spacing(2),
-        marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(3),
-            width: 'auto',
-        },
-    },
-    searchIcon: {
-        padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    inputRoot: {
-        color: 'inherit',
-    },
-    inputInput: {
-        padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('md')]: {
-            width: '20ch',
-        },
-    },
-    sectionDesktop: {
-        display: 'none',
-        [theme.breakpoints.up('md')]: {
-            display: 'flex',
-        },
-    },
-    sectionMobile: {
-        display: 'flex',
-        [theme.breakpoints.up('md')]: {
-            display: 'none',
-        },
-    },
-}));
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import useStyles from '../styles.js';
 
 function Navigation(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
-
     const isMenuOpen = Boolean(anchorEl);
+    const searchQuery = encodeURIComponent(props.searchQuery);
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -107,15 +37,18 @@ function Navigation(props) {
         </Menu>
     );
 
+
     return (
         <div className={classes.grow}>
             <AppBar className={classes.appbar} position="static">
                 <Toolbar>
-                    <Typography className={classes.title} variant="h6" noWrap href="/">
+                    <Typography className={classes.logo} variant="h6" noWrap href="/">
                         <Link underline="none" href="/" color="inherit">Setlist Guru</Link>
                     </Typography>
+
+                    <div className={classes.grow} />
                     {window.location.pathname !== '/' ? (
-                        <div className={classes.search}>
+                        <div className={classes.navsearch}>
                             <div className={classes.searchIcon}>
                                 <SearchIcon />
                             </div>
@@ -126,16 +59,21 @@ function Navigation(props) {
                                     input: classes.inputInput,
                                 }}
                                 inputProps={{ 'aria-label': 'search' }}
+                                onChange={props.updateSearchValue}
                             />
                         </div>
                     ) : null}
-                    <div className={classes.grow} />
+                    {window.location.pathname !== '/' ? (
+                        <div>
+                            <Button className={classes.buttonLite} variant="contained" color="primary" onClick={() => window.location.href = `/search/${searchQuery}/1`} >Search</Button>
+                        </div>
+                    ) : null}
                     <div className={classes.sectionDesktop}>
                         <div>
-                            <Button className={classes.formItem} variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={handleProfileMenuOpen}>Menu</Button>
+                            <Button className={classes.buttonLite} variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={handleProfileMenuOpen}>Menu</Button>
                         </div>
                         <div>
-                            <Button className={classes.formItem} variant="contained" color="primary" onClick={props.logout} >Logout</Button>
+                            <Button className={classes.buttonLite} variant="contained" color="primary" onClick={props.logout} >Logout</Button>
                         </div>
                         <IconButton
                             edge="end"
@@ -143,9 +81,8 @@ function Navigation(props) {
                             aria-controls={menuId}
                             aria-haspopup="true"
                             onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            {/* <AccountCircle /> */}
+                            color="inherit">
+                            <AccountCircleIcon />
                         </IconButton>
                     </div>
                 </Toolbar>
@@ -158,13 +95,15 @@ function Navigation(props) {
 const mapStateToProps = state => {
     return {
         setlists: state.setlists,
-        token: state.auth.token
+        token: state.auth.token,
+        searchQuery: state.search.searchQuery,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         logout: () => dispatch(thunks.logout()),
+        updateSearchValue: e => dispatch(actions.updateSearchValue(e.target.value)),
     };
 };
 

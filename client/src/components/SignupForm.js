@@ -2,30 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { actions, thunks } from '../store/auth';
 import { Button, FormControl, Grid, Input, InputLabel, Paper } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    },
-    formItem: {
-        padding: theme.spacing(2)
-    }
-}));
+import useStyles from '../styles.js';
 
 const LoginForm = (props) => {
-
     const classes = useStyles();
 
     return (
         <Grid container justify="center" spacing={3}>
             <Grid item xs={6}>
-                <Paper className={classes.paper}>
+                <Paper className={classes.authForm}>
                     <h2>Sign Up</h2>
                     <form>
                         <div>

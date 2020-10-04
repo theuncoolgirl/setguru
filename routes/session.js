@@ -15,6 +15,7 @@ router.put('/', handler(async (req, res) => {
             const token = getUserToken(user);
             return res.status(201).json({
                 token,
+                userId: user.id
             });
         } else {
             return res.status(404).end();

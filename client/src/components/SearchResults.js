@@ -2,23 +2,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { actions, thunks } from '../store/search';
 import { Grid, Link, Paper } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import useStyles from '../styles.js';
 import Pagination from './Pagination';
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-        backgroundColor: '#1a1c2e'
-    },
-    formItem: {
-        padding: theme.spacing(2)
-    }
-}));
 
 function SearchResults(props) {
     const classes = useStyles();
@@ -46,7 +31,7 @@ function SearchResults(props) {
 
     if (setlists[0]) {
         return (
-            <div className={classes.root} style={{
+            <div className={classes.grow} style={{
                 paddingLeft: 30,
                 paddingRight: 30
             }}>

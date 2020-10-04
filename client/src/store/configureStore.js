@@ -5,11 +5,13 @@ import thunk from 'redux-thunk';
 import auth from './auth';
 import search from './search';
 import setlist from './setlist';
+import userSetlists from './userSetlists';
 
 const rootReducer = combineReducers({
     auth,
     search,
-    setlist
+    setlist,
+    userSetlists
 });
 
 let storeEnhancer;
