@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { thunks } from '../store/auth';
+import { actions } from '../store/search';
 import { AppBar, Button, IconButton, InputBase, Link, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
@@ -10,6 +11,7 @@ function Navigation(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const isMenuOpen = Boolean(anchorEl);
+    const searchQuery = encodeURIComponent(props.searchQuery);
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -35,6 +37,7 @@ function Navigation(props) {
         </Menu>
     );
 
+
     return (
         <div className={classes.grow}>
             <AppBar className={classes.appbar} position="static">
@@ -56,7 +59,13 @@ function Navigation(props) {
                                     input: classes.inputInput,
                                 }}
                                 inputProps={{ 'aria-label': 'search' }}
+                                onChange={props.updateSearchValue}
                             />
+                        </div>
+                    ) : null}
+                    {window.location.pathname !== '/' ? (
+                        <div>
+                            <Button className={classes.buttonLite} variant="contained" color="primary" onClick={() => window.location.href = `/search/${searchQuery}/1`} >Search</Button>
                         </div>
                     ) : null}
                     <div className={classes.sectionDesktop}>
@@ -86,13 +95,15 @@ function Navigation(props) {
 const mapStateToProps = state => {
     return {
         setlists: state.setlists,
-        token: state.auth.token
+        token: state.auth.token,
+        searchQuery: state.search.searchQuery,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         logout: () => dispatch(thunks.logout()),
+        updateSearchValue: e => dispatch(actions.updateSearchValue(e.target.value)),
     };
 };
 

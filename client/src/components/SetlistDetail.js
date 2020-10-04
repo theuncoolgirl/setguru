@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { actions, thunks } from '../store/setlist';
 import { thunks as userSetlistsThunks } from '../store/userSetlists';
-import { Button, Grid, Paper, Typography } from '@material-ui/core';
+import { Button, Grid, Paper } from '@material-ui/core';
 import useStyles from '../styles.js';
 
 const SetlistDetail = (props) => {

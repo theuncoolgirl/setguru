@@ -7,20 +7,33 @@ const useStyles = makeStyles((theme) => ({
     },
     artist: {
         padding: theme.spacing(2),
-        textAlign: 'center',
+        textAlign: 'left',
         color: theme.palette.text.secondary,
         height: 195,
         width: 325,
         display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
+        justifyContent: "left",
+        // alignItems: "b",
+        flexDirection: "column-reverse",
         backgroundSize: "128%",
         backgroundPosition: "50% 20%",
     },
+    artistButton: {
+        backgroundColor: fade(theme.palette.common.white, 0.25),
+        '&:hover': {
+            backgroundColor: fade(theme.palette.common.white, 0.50),
+        },
+        margin: 5
+    },
     artists: {
         flexGrow: 1,
-        maxWidth: 1170
+        maxWidth: 1100,
+        margin: 10,
+        padding: 0
+    },
+    artistTitle: {
+        color: 'white',
+        fontSize: "2em",
     },
     base: {
         backgroundColor: '#06070B'
