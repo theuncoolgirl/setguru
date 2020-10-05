@@ -59,7 +59,7 @@ const SetlistDetail = (props) => {
                 paddingLeft: 30,
                 paddingRight: 30
             }}>
-                <h4 style={{ color: "white" }}>Breadcrumbs</h4>
+                <h4 style={{ color: "white" }}>Setlist Details</h4>
                 <Grid container spacing={3}>
                     <Grid item xs={8}>
                         <Paper id='setlist-info' className={classes.paper}>
