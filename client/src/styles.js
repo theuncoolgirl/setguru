@@ -81,9 +81,9 @@ const useStyles = makeStyles((theme) => ({
         minWidth: 35
     },
     dateBox: {
-        backgroundColor: '#CD9337',
+        backgroundColor: '#752625',
         color: "white",
-        width: 100
+        width: 80
     },
     detailCard: {
         margin: 15,

@@ -42,7 +42,7 @@ function Navigation(props) {
         <div className={classes.grow}>
             <AppBar className={classes.appbar} position="static">
                 <Toolbar>
-                    <Typography className={classes.logo} variant="h6" noWrap href="/">
+                    <Typography className={classes.logo} variant="h6" noWrap>
                         <Link underline="none" href="/" color="inherit">Setlist Guru</Link>
                     </Typography>
 
