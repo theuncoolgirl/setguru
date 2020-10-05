@@ -47,7 +47,7 @@ function SearchResults(props) {
                                     <Grid container spacing={2}>
                                         <Grid item xs={2}>
                                             <Paper className={classes.dateBox} elevation={0} >
-                                                <Typography noWrap>{months[parseInt(setlist.eventDate.split("").slice(3, 5).join(""))]}</Typography>
+                                                <Typography noWrap>{months[parseInt(setlist.eventDate.split("").slice(3, 5).join("")) - 1]}</Typography>
                                                 <Typography style={{ fontSize: "2em", margin: 0 }} noWrap>{setlist.eventDate.split("").slice(0, 2).join("")}</Typography>
                                                 <Typography noWrap>{setlist.eventDate.split("").slice(6).join("")}</Typography>
                                             </Paper>

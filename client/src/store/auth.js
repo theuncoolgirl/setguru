@@ -34,7 +34,6 @@ const tryLogin = () => {
         try {
             if (response.status >= 200 && response.status < 400) {
                 const data = await response.json();
-                console.log("DATA: ", data);
                 dispatch(updateTokenValue(data.token));
                 window.localStorage.setItem('SETLIST_TOKEN', data.token);
                 window.localStorage.setItem('USERID', data.userId)
@@ -59,8 +58,7 @@ const trySignup = () => {
         });
         try {
             if (response.status >= 200 && response.status < 400) {
-                const data = await response.json();
-                console.log(data);
+                await response.json();
                 window.location.href = '/login';
             } else {
                 console.error('Bad response');

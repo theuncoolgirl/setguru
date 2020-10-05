@@ -13,6 +13,7 @@ const SetlistDetail = (props) => {
     const {
         updateSetlistidValue,
         getSetlist,
+        getComments,
         userSetlists,
         setlistCheck,
         hasCurrentSetlist,
@@ -28,7 +29,8 @@ const SetlistDetail = (props) => {
         updateSetlistidValue(setlistId)
         getSetlist(setlistId);
         setlistCheck();
-    }, [setlistId, updateSetlistidValue, getSetlist, userSetlists, setlistCheck, hasCurrentSetlist]);
+        getComments();
+    }, [setlistId, updateSetlistidValue, getSetlist, userSetlists, setlistCheck, hasCurrentSetlist, getComments]);
 
     const handleSetlistDelete = () => {
         deleteSetlist();
@@ -36,10 +38,21 @@ const SetlistDetail = (props) => {
         setlistCheck();
     }
 
+    const findUserComment = () => {
+        if (props.comments) {
+            for (let i = 0; i < props.comments.length; i++) {
+                if (props.comments[i].userId === parseInt(localStorage.getItem("USERID"))) {
+                    return props.comments[i].comment
+                } else {
+                    return "Add a Comment";
+                }
+            }
+        }
+    }
+
     if (props.setlist) {
         const setlist = props.setlist.results;
         const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-        console.log(setlist);
         const songs = setlist.sets.set[0].song;
         return (
             <div className={classes.grow} style={{
@@ -53,7 +66,7 @@ const SetlistDetail = (props) => {
                             <div style={{ display: "inline" }} id="setlist-title">
                                 <Paper id="datebox" className={classes.dateBox} elevation={0}>
                                     <div>{setlist.eventDate.split("").slice(0, 2).join("")}</div>
-                                    <div>{months[parseInt(setlist.eventDate.split("").slice(3, 5).join(""))]}</div>
+                                    <div>{months[parseInt(setlist.eventDate.split("").slice(3, 5).join("")) - 1]}</div>
                                     <div>{setlist.eventDate.split("").slice(6).join("")}</div>
                                 </Paper>
                                 <div id="set-info" style={{ color: 'white' }}>
@@ -88,16 +101,17 @@ const SetlistDetail = (props) => {
                             {hasCurrentSetlist ?
                                 <Paper className={classes.detailCard}>
                                     <div>
-                                        <Typography className={classes.accordionHeading}>New Comment</Typography>
+                                        <Typography className={classes.accordionHeading}>Add or Update Your Comments</Typography>
                                         <TextField id="filled-textarea"
-                                            label="Comment"
-                                            // placeholder="Placeholder"
+                                            // label="Comment"
+                                            defaultValue={findUserComment()}
                                             multiline
                                             rows={3}
                                             className={classes.search}
-                                            variant="filled" />
+                                            variant="filled"
+                                            onChange={props.updateNewCommentValue} />
                                         <div>
-                                            <Button className={classes.button} variant="contained" color="primary">Add Comment</Button>
+                                            <Button className={classes.button} variant="contained" color="primary" onClick={props.addComment}>Submit Comment</Button>
                                         </div>
                                         {/* <InputBase className={classes.search} id="searchBar" placeholder="  Artist, Venue, Location..." onChange={props.updateSearchValue} /> */}
                                     </div>
@@ -118,8 +132,7 @@ const SetlistDetail = (props) => {
                                             {props.comments.map((comment, i) => (
                                                 <AccordionDetails key={i}>
                                                     <Typography>
-                                                        <div>{comment.comment}</div>
-                                                        <div>{comment.username}</div>
+                                                        {comment.comment} by {comment.username}
                                                     </Typography>
                                                 </AccordionDetails>
                                             ))}
@@ -167,6 +180,8 @@ const mapDispatchToProps = dispatch => {
         deleteSetlist: () => dispatch(userSetlistsThunks.deleteSetlist()),
         removeSetlist: () => dispatch(userSetlistsActions.removeSetlist()),
         getComments: () => dispatch(userSetlistsThunks.getComments()),
+        updateNewCommentValue: (e) => dispatch(userSetlistsActions.updateNewCommentValue(e.target.value)),
+        addComment: () => dispatch(userSetlistsThunks.addComment()),
     };
 };
 
