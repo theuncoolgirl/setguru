@@ -82,7 +82,9 @@ function Navigation(props) {
                             aria-haspopup="true"
                             onClick={handleProfileMenuOpen}
                             color="inherit">
-                            <AccountCircleIcon />
+                            <Link underline="none" href={`/user/${localStorage.getItem("USERID")}`} color="inherit">
+                                <AccountCircleIcon />
+                            </Link>
                         </IconButton>
                     </div>
                 </Toolbar>
