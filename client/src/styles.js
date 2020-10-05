@@ -47,6 +47,13 @@ const useStyles = makeStyles((theme) => ({
         color: 'white',
         fontSize: "2em",
     },
+    authForm: {
+        padding: theme.spacing(2),
+        textAlign: 'center',
+        color: "white",
+        marginTop: 50,
+        backgroundColor: "#3E3F4D"
+    },
     base: {
         backgroundColor: '#06070B'
     },
@@ -91,7 +98,9 @@ const useStyles = makeStyles((theme) => ({
         color: "white",
     },
     formItem: {
-        padding: theme.spacing(2)
+        padding: theme.spacing(2),
+        color: "white",
+        margin: 10,
     },
     grow: {
         flexGrow: 1,
@@ -119,11 +128,6 @@ const useStyles = makeStyles((theme) => ({
     inputRoot: {
         color: 'inherit',
     },
-    authForm: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    },
     logo: {
         display: 'none',
         [theme.breakpoints.up('sm')]: {
@@ -138,7 +142,6 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: fade(theme.palette.common.white, 0.25),
         },
         marginRight: 5,
-        marginBottom: 2,
         width: '100%',
         [theme.breakpoints.up('sm')]: {
             marginLeft: theme.spacing(3),
@@ -191,6 +194,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'none',
         [theme.breakpoints.up('sm')]: {
             display: 'flex',
+            alignItems: 'center'
         },
     },
 }));

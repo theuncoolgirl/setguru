@@ -32,8 +32,8 @@ function Navigation(props) {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Placeholder 1</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Placeholder 2</MenuItem>
+            {/* <MenuItem onClick={handleMenuClose}>Placeholder 1</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Placeholder 2</MenuItem> */}
         </Menu>
     );
 
@@ -63,29 +63,31 @@ function Navigation(props) {
                             />
                         </div>
                     ) : null}
-                    {window.location.pathname !== '/' ? (
-                        <div>
-                            <Button className={classes.buttonLite} variant="contained" color="primary" onClick={() => window.location.href = `/search/${searchQuery}/1`} >Search</Button>
-                        </div>
-                    ) : null}
                     <div className={classes.sectionDesktop}>
+                        {window.location.pathname !== '/' ? (
+                            <div>
+                                <Button className={classes.buttonLite} variant="contained" color="primary" onClick={() => window.location.href = `/search/${searchQuery}/1`} >Search</Button>
+                            </div>
+                        ) : null}
                         <div>
                             <Button className={classes.buttonLite} variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={handleProfileMenuOpen}>Menu</Button>
                         </div>
                         <div>
                             <Button className={classes.buttonLite} variant="contained" color="primary" onClick={props.logout} >Logout</Button>
                         </div>
-                        <IconButton
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit">
-                            <Link underline="none" href={`/user/${localStorage.getItem("USERID")}`} color="inherit">
-                                <AccountCircleIcon />
-                            </Link>
-                        </IconButton>
+                        <div>
+                            <IconButton
+                                edge="end"
+                                aria-label="account of current user"
+                                aria-controls={menuId}
+                                aria-haspopup="true"
+                                onClick={handleProfileMenuOpen}
+                                color="inherit">
+                                <Link underline="none" href={`/user/${localStorage.getItem("USERID")}`} color="inherit">
+                                    <AccountCircleIcon />
+                                </Link>
+                            </IconButton>
+                        </div>
                     </div>
                 </Toolbar>
             </AppBar>

@@ -17,7 +17,6 @@ const searchResults = (searchTerm, page = 1) => {
         artistName: searchTerm
     }, page)
         .then(function (results) {
-            // console.log(results)
             return results
         })
         .catch(function (error) {
@@ -25,13 +24,10 @@ const searchResults = (searchTerm, page = 1) => {
         });
 }
 
-// searchResults(`The Flatliners`, `2`);
-
 router.put('/', handler(async (req, res) => {
     const { searchQuery, page } = req.body;
     if (searchQuery) {
         const results = await searchResults(searchQuery, page)
-        // console.log(results);
         return res.status(201).json({
             results,
         });

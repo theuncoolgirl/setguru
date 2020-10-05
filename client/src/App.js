@@ -29,8 +29,10 @@ function App(props) {
                         <ProtectedRoute isLoggedIn={props.token} exact path="/user/:userId" render={props => <UserProfile {...props} />} />
                         <ProtectedRoute isLoggedIn={props.token} path="/search/:query/:page" render={props => <SearchResults {...props} />} />
                         <ProtectedRoute isLoggedIn={props.token} path="/setlist/:setlistId" render={props => <SetlistDetail {...props} />} />
-
                     </Switch>
+                </Container>
+                <Container>
+                    <div style={{ height: 800 }}></div>
                 </Container>
             </BrowserRouter>
         </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { actions, thunks } from '../store/auth';
-import { Button, FormControl, Grid, Input, InputLabel, Paper } from '@material-ui/core';
+import { Button, FormControl, Grid, Input, InputLabel, Link, Paper } from '@material-ui/core';
 import useStyles from '../styles.js';
 
 const LoginForm = (props) => {
@@ -16,26 +16,28 @@ const LoginForm = (props) => {
                         <div>
                             <FormControl className={classes.formItem}>
                                 <InputLabel htmlFor="username">Username:</InputLabel>
-                                <Input id="username" placeholder="Username" value={props.username || ''} onChange={props.updateUsernameValue} />
+                                <Input style={{ marginBottom: 10 }} id="username" placeholder="Username" value={props.username || ''} onChange={props.updateUsernameValue} />
                             </FormControl>
                         </div>
                         <div>
                             <FormControl className={classes.formItem}>
                                 <InputLabel htmlFor="email">Email:</InputLabel>
-                                <Input id="email" placeholder="Email" value={props.email || ''} onChange={props.updateEmailValue} />
+                                <Input style={{ marginBottom: 10 }} id="email" placeholder="Email" value={props.email || ''} onChange={props.updateEmailValue} />
                             </FormControl>
                         </div>
                         <div>
                             <FormControl className={classes.formItem}>
                                 <InputLabel htmlFor="password">Password:</InputLabel>
-                                <Input id="password" type='password' placeholder="Password" value={props.password || ''} onChange={props.updatePasswordValue} />
+                                <Input style={{ marginBottom: 20 }} id="password" type='password' placeholder="Password" value={props.password || ''} onChange={props.updatePasswordValue} />
                                 {/* TODO: Confirm Password */}
                                 {/* TODO: Password characters as dots */}
                             </FormControl>
                         </div>
                         <div>
-                            <Button className={classes.formItem} variant="contained" color="primary" onClick={props.trySignup} >Submit</Button>
-                            {/* TODO: Link to Login Page */}
+                            <Button className={classes.button} variant="contained" color="primary" onClick={props.trySignup} >Submit</Button>
+                        </div>
+                        <div style={{ marginTop: 5 }}>
+                            <span>Already have an account? </span><Link href='/login' style={{ color: "#CD9337" }}>Login here.</Link>
                         </div>
                     </form>
                 </Paper>

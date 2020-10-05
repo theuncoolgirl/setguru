@@ -17,4 +17,13 @@ router.post(
         });
     }));
 
+router.get(
+    '/:userId',
+    handler(async (req, res) => {
+        const userId = req.params.userId;
+        const user = await User.findByPk(userId);
+        res.status(201).json({ user })
+    })
+)
+
 module.exports = router;

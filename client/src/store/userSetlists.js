@@ -15,7 +15,7 @@ export const actions = {
     removeSetlist,
     checkSetlist,
     updateComments,
-    updateNewCommentValue
+    updateNewCommentValue,
 };
 
 const createUserSetlist = () => {
@@ -135,7 +135,7 @@ export const thunks = {
     setlistCheck,
     deleteSetlist,
     getComments,
-    addComment
+    addComment,
 }
 
 const initialState = {};
