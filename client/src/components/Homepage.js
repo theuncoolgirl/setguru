@@ -48,7 +48,6 @@ function Homepage(props) {
                         </Link>
                     </Grid>
                 </Grid>
-                <Typography style={{ color: "white" }} variant="h6" noWrap>Bottom Section</Typography>
             </Container>
         </div >
     );

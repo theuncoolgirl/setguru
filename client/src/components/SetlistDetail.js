@@ -175,7 +175,6 @@ const mapDispatchToProps = dispatch => {
         updateSetlistidValue: value => dispatch(actions.updateSetlistidValue(value)),
         getSetlist: () => dispatch(thunks.getSetlist()),
         createUserSetlist: () => dispatch(userSetlistsThunks.createUserSetlist()),
-        getUserSetlists: () => dispatch(userSetlistsThunks.getUserSetlists()),
         setlistCheck: () => dispatch(userSetlistsThunks.setlistCheck()),
         deleteSetlist: () => dispatch(userSetlistsThunks.deleteSetlist()),
         removeSetlist: () => dispatch(userSetlistsActions.removeSetlist()),

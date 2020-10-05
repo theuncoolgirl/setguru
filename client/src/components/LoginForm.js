@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { actions, thunks } from '../store/auth';
 import { Redirect } from 'react-router-dom';
-import { Button, FormControl, Grid, Input, InputLabel, Paper } from '@material-ui/core';
+import { Button, FormControl, Grid, Input, InputLabel, Link, Paper } from '@material-ui/core';
 import useStyles from '../styles.js';
 
 const LoginForm = (props) => {
@@ -20,19 +20,21 @@ const LoginForm = (props) => {
                         <div>
                             <FormControl className={classes.formItem}>
                                 <InputLabel htmlFor="email">Email:</InputLabel>
-                                <Input id="email" placeholder="Email" value={props.email || ''} onChange={props.updateEmailValue} />
+                                <Input style={{ marginBottom: 10 }} id="email" placeholder="Email" value={props.email || ''} onChange={props.updateEmailValue} />
                             </FormControl>
                         </div>
                         <div>
                             <FormControl className={classes.formItem}>
                                 <InputLabel htmlFor="password">Password:</InputLabel>
-                                <Input id="password" type='password' placeholder="Password" value={props.password || ''} onChange={props.updatePasswordValue} />
+                                <Input style={{ marginBottom: 20 }} id="password" type='password' placeholder="Password" value={props.password || ''} onChange={props.updatePasswordValue} />
                             </FormControl>
                         </div>
                         <div>
-                            <Button className={classes.formItem} variant="contained" color="primary" onClick={props.tryLogin} >Submit</Button>
-                            <Button className={classes.formItem} variant="contained" color="primary" onClick={props.popDemoUser} >Demo User</Button>
-                            {/* TODO: Link to Sign Up Page */}
+                            <Button className={classes.button} variant="contained" color="primary" onClick={props.tryLogin} >Submit</Button>
+                            <Button className={classes.button} variant="contained" color="primary" onClick={props.popDemoUser} >Demo User</Button>
+                        </div>
+                        <div style={{ marginTop: 5 }}>
+                            <span>Need an account? </span><Link href='/signup' style={{ color: "#CD9337" }}>Sign up here.</Link>
                         </div>
                     </form>
                 </Paper>

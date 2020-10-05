@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { actions, thunks } from '../store/search';
-import { Grid, Link, Paper, Typography } from '@material-ui/core';
+import { Button, Grid, Link, Paper, Typography } from '@material-ui/core';
 import useStyles from '../styles.js';
 import Pagination from './Pagination';
 
@@ -38,13 +38,15 @@ function SearchResults(props) {
                 <h1 style={{ color: "white" }}>Search Results</h1>
                 <Grid container spacing={3}>
                     <Grid item xs={3}>
-                        <Paper className={classes.paper}>Artist Info</Paper>
+                        <Paper className={classes.paper} style={{ height: 1000, color: "white" }}>
+                            <Button className={classes.buttonLite} style={{ width: 'auto' }} variant="contained" color="primary">Artist Info</Button>
+                        </Paper>
                     </Grid>
                     <Grid item xs={9}>
                         <Paper id='search-results' className={classes.paper}>
                             {setlists.map((setlist) => (
                                 <Paper key={setlist.id} id='single-result' variant="outlined" style={{ padding: 15, margin: 2, backgroundColor: "#3E3F4D", color: "white" }}>
-                                    <Grid container spacing={2}>
+                                    <Grid container spacing={2} alignItems="center" justify="center">
                                         <Grid item xs={2}>
                                             <Paper className={classes.dateBox} elevation={0} >
                                                 <Typography noWrap>{months[parseInt(setlist.eventDate.split("").slice(3, 5).join("")) - 1]}</Typography>
@@ -52,8 +54,8 @@ function SearchResults(props) {
                                                 <Typography noWrap>{setlist.eventDate.split("").slice(6).join("")}</Typography>
                                             </Paper>
                                         </Grid>
-                                        <Grid item xs={10}>
-                                            <Paper elevation={0} variant='outlined' style={{ backgroundColor: "#3E3F4D", color: "white" }}>
+                                        <Grid item xs={9}>
+                                            <Paper elevation={0} variant='outlined' style={{ backgroundColor: "#3E3F4D", color: "white", padding: 14 }}>
                                                 <div>
                                                     <Link href={`/setlist/${setlist.id}`} style={{ color: "#CD9337" }}>
                                                         {setlist.artist.name} at {setlist.venue.name}, {setlist.venue.city.name}, {setlist.venue.city.stateCode}, {setlist.venue.city.country.name}
@@ -65,12 +67,12 @@ function SearchResults(props) {
                                                 </div>
                                                 <div>
                                                     {setlist.sets.set.length > 0 ? (
-                                                        <div>
-                                                            {setlist.sets.set[0].song[0] && setlist.sets.set[0].song[0].name ? setlist.sets.set[0].song[0].name : null} {setlist.sets.set[0].song[1] && setlist.sets.set[0].song[1].name ? setlist.sets.set[0].song[1].name : null} {setlist.sets.set[0].song[2] && setlist.sets.set[0].song[2].name ? setlist.sets.set[0].song[2].name : null} {setlist.sets.set[0].song[3] && setlist.sets.set[0].song[3].name ? setlist.sets.set[0].song[3].name : null} {setlist.sets.set[0].song[4] && setlist.sets.set[0].song[4].name ? setlist.sets.set[0].song[4].name : null}
+                                                        <div style={{ color: "#7e7f97" }}>
+                                                            {setlist.sets.set[0].song[0] && setlist.sets.set[0].song[0].name ? setlist.sets.set[0].song[0].name : null} {setlist.sets.set[0].song[1] && setlist.sets.set[0].song[1].name ? setlist.sets.set[0].song[1].name : null} {setlist.sets.set[0].song[2] && setlist.sets.set[0].song[2].name ? setlist.sets.set[0].song[2].name : null} {setlist.sets.set[0].song[3] && setlist.sets.set[0].song[3].name ? setlist.sets.set[0].song[3].name : null} {setlist.sets.set[0].song[4] && setlist.sets.set[0].song[4].name ? setlist.sets.set[0].song[4].name : null} & more...
                                                         </div>
                                                     ) : null}
                                                 </div>
-                                                <div>Options (add/star)</div>
+                                                {/* <div>Options (add/star)</div> */}
                                             </Paper>
                                         </Grid>
                                     </Grid>
@@ -79,7 +81,7 @@ function SearchResults(props) {
                         </Paper>
                     </Grid>
                     <Grid item xs={3}>
-                        <Paper className={classes.paper}>Filters</Paper>
+                        <Paper className={classes.paper} hidden={true} >Filters</Paper>
                     </Grid>
                     <Grid item xs={9}>
                         <Paper className={classes.paper}>

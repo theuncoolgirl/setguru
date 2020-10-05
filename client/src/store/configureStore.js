@@ -6,12 +6,14 @@ import auth from './auth';
 import search from './search';
 import setlist from './setlist';
 import userSetlists from './userSetlists';
+import userProfile from './userProfile';
 
 const rootReducer = combineReducers({
     auth,
     search,
     setlist,
-    userSetlists
+    userSetlists,
+    userProfile,
 });
 
 let storeEnhancer;
