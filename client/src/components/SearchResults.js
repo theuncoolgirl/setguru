@@ -33,7 +33,8 @@ function SearchResults(props) {
         return (
             <div className={classes.grow} style={{
                 paddingLeft: 30,
-                paddingRight: 30
+                paddingRight: 30,
+                maxWidth: 60 %
             }}>
                 <h1 style={{ color: "white" }}>Search Results</h1>
                 <Grid container spacing={3}>
