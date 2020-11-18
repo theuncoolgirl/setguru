@@ -53,7 +53,7 @@ function Navigation(props) {
                                 <SearchIcon />
                             </div>
                             <InputBase
-                                placeholder="Search…"
+                                placeholder="Search Coins"
                                 classes={{
                                     root: classes.inputRoot,
                                     input: classes.inputInput,
