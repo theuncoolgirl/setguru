@@ -7,6 +7,7 @@ const { User } = require('../db/models');
 const router = express.Router();
 
 router.put('/', handler(async (req, res) => {
+    console.log("hit within route");
     const { email, password } = req.body;
     if (email && password) {
         const user = await User.findOne({ where: { email } });
