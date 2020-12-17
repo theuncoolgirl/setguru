@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { thunks } from '../store/auth';
 import { actions } from '../store/search';
-import { AppBar, Button, IconButton, InputBase, Link, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Button, IconButton, InputBase, Link, Menu, Toolbar, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import useStyles from '../styles.js';
@@ -32,8 +32,6 @@ function Navigation(props) {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            {/* <MenuItem onClick={handleMenuClose}>Placeholder 1</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Placeholder 2</MenuItem> */}
         </Menu>
     );
 
