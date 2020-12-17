@@ -5,13 +5,12 @@ This is the backend for the Solo React project.
 ## Getting started
 
 1. Clone this repository
-2. Install dependencies (`npm install`)
+2. Install dependencies (`npm install`) in both the project root and `client` directories. 
 3. Create a **.env** file based on the example with proper settings for your
    development environment
 4. Setup your PostgreSQL user, password and database and make sure it matches your **.env** file with CREATEDB privileges
-
+5. `npm start` application  client directory
 5. Run
-   * `npm run db:create`
    * `npm run db:migrate`
    * `npm run db:seed:all`
    * `npm start`
