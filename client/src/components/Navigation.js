@@ -2,39 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { thunks } from '../store/auth';
 import { actions } from '../store/search';
-import { AppBar, Button, IconButton, InputBase, Link, Menu, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Button, InputBase, Link, Toolbar, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import useStyles from '../styles.js';
 
 function Navigation(props) {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const isMenuOpen = Boolean(anchorEl);
     const searchQuery = encodeURIComponent(props.searchQuery);
-
-    const handleProfileMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-    };
-
-    const menuId = 'primary-search-account-menu';
-    const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            id={menuId}
-            keepMounted
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-        >
-        </Menu>
-    );
-
 
     return (
         <div className={classes.grow}>
@@ -68,28 +42,16 @@ function Navigation(props) {
                             </div>
                         ) : null}
                         <div>
-                            <Button className={classes.buttonLite} variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={handleProfileMenuOpen}>Menu</Button>
-                        </div>
-                        <div>
                             <Button className={classes.buttonLite} variant="contained" color="primary" onClick={props.logout} >Logout</Button>
                         </div>
                         <div>
-                            <IconButton
-                                edge="end"
-                                aria-label="account of current user"
-                                aria-controls={menuId}
-                                aria-haspopup="true"
-                                onClick={handleProfileMenuOpen}
-                                color="inherit">
-                                <Link underline="none" href={`/user/${localStorage.getItem("USERID")}`} color="inherit">
-                                    <AccountCircleIcon />
+                            <Link underline="none" href={`/user/${localStorage.getItem("USERID")}`} color="inherit">
+                                <Button className={classes.buttonLite} variant="contained" color="primary" >Account</Button>
                                 </Link>
-                            </IconButton>
                         </div>
                     </div>
                 </Toolbar>
             </AppBar>
-            {renderMenu}
         </div>
     );
 }
