@@ -17,8 +17,9 @@ function Navigation(props) {
                     <Typography className={classes.logo} variant="h6" noWrap>
                         <Link underline="none" href="/" color="inherit">Setlist Guru</Link>
                     </Typography>
-
                     <div className={classes.grow} />
+                    {props.token ? (
+                    <div>
                     {window.location.pathname !== '/' ? (
                         <div className={classes.navsearch}>
                             <div className={classes.searchIcon}>
@@ -42,14 +43,18 @@ function Navigation(props) {
                             </div>
                         ) : null}
                         <div>
-                            <Button className={classes.buttonLite} variant="contained" color="primary" onClick={props.logout} >Logout</Button>
+                                <Button className={classes.buttonLite} variant="contained" color="primary" onClick={props.logout} >Logout</Button>
+                               
                         </div>
                         <div>
                             <Link underline="none" href={`/user/${localStorage.getItem("USERID")}`} color="inherit">
                                 <Button className={classes.buttonLite} variant="contained" color="primary" >Account</Button>
-                                </Link>
+                            </Link>
                         </div>
+                        
                     </div>
+                        </div>
+                    ) : null} 
                 </Toolbar>
             </AppBar>
         </div>
