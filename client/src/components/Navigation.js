@@ -19,14 +19,14 @@ function Navigation(props) {
                     </Typography>
                     <div className={classes.grow} />
                     {props.token ? (
-                    <div>
+                    <>
                     {window.location.pathname !== '/' ? (
                         <div className={classes.navsearch}>
                             <div className={classes.searchIcon}>
                                 <SearchIcon />
                             </div>
                             <InputBase
-                                placeholder="Search Coins"
+                                placeholder="Artist, Venue, Location..."
                                 classes={{
                                     root: classes.inputRoot,
                                     input: classes.inputInput,
@@ -51,9 +51,8 @@ function Navigation(props) {
                                 <Button className={classes.buttonLite} variant="contained" color="primary" >Account</Button>
                             </Link>
                         </div>
-                        
                     </div>
-                        </div>
+                        </>
                     ) : null} 
                 </Toolbar>
             </AppBar>

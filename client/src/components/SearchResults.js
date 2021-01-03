@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { actions, thunks } from '../store/search';
-import { Button, Grid, Link, Paper, Typography } from '@material-ui/core';
+import { Grid, Link, Paper, Typography } from '@material-ui/core';
 import useStyles from '../styles.js';
 import Pagination from './Pagination';
 
@@ -37,11 +37,11 @@ function SearchResults(props) {
             }}>
                 <h1 style={{ color: "white" }}>Search Results</h1>
                 <Grid container spacing={3}>
-                    <Grid item xs={3}>
+                    {/* <Grid item xs={3}>
                         <Paper className={classes.paper} style={{ height: 1000, color: "white" }}>
                             <Button className={classes.buttonLite} style={{ width: 'auto' }} variant="contained" color="primary">Artist Info</Button>
                         </Paper>
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={9}>
                         <Paper id='search-results' className={classes.paper}>
                             {setlists.map((setlist) => (
