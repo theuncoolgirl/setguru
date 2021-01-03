@@ -6,3 +6,4 @@ DB_HOST=server
 DEBUG=starter:server
 JWT_SECRET_KEY=strong_random_bytes
 JWT_EXPIRES_IN=604800
+REACT_APP_SETLISTFM_API_KEY=

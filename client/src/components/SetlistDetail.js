@@ -117,6 +117,36 @@ const SetlistDetail = (props) => {
                                     </div>
                                 </Paper>
                                 : null}
+                            {/* <Paper className={classes.detailCard}>
+                                <Accordion className={classes.accordion}>
+                                    <AccordionSummary
+                                        expandIcon={<ExpandMoreIcon />}
+                                        aria-controls="panel1a-content"
+                                        id="panel1a-header"
+                                        onClick={props.getComments}
+                                    >
+                                        <Typography className={classes.accordionHeading}>Comments</Typography>
+                                    </AccordionSummary>
+                                    {props.comments && props.comments.length > 0 ?
+                                        (<div>
+                                            {props.comments.map((comment, i) => (
+                                                <AccordionDetails key={i}>
+                                                    <Typography>
+                                                        {comment.comment} by {comment.username}
+                                                    </Typography>
+                                                </AccordionDetails>
+                                            ))}
+                                        </div>) : (
+                                            <div>
+                                                <AccordionDetails>
+                                                    <Typography>
+                                                        No comments yet! Been to this show? Add your comment in the form above.
+                                                    </Typography>
+                                                </AccordionDetails>
+                                            </div>
+                                        )}
+                                </Accordion>
+                            </Paper> */}
                             <Paper className={classes.detailCard}>
                                 <Accordion className={classes.accordion}>
                                     <AccordionSummary
