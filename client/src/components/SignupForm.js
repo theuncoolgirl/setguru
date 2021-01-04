@@ -36,6 +36,13 @@ const LoginForm = (props) => {
                         <div>
                             <Button className={classes.button} variant="contained" color="primary" onClick={props.trySignup} >Submit</Button>
                         </div>
+                        {props.errors ? (
+                            <div>
+                                {props.errors.map((error, i) => (
+                                    <p style={{ color: "#CD9337" }} key={i}>{error}</p>
+                                ))}
+                            </div>
+                        ) : null}
                         <div style={{ marginTop: 5 }}>
                             <span>Already have an account? </span><Link href='/login' style={{ color: "#CD9337" }}>Login here.</Link>
                         </div>
@@ -51,6 +58,7 @@ const mapStateToProps = state => {
         email: state.auth.email,
         password: state.auth.password,
         username: state.auth.username,
+        errors: state.auth.errors,
     }
 }
 
