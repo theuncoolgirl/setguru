@@ -1,9 +1,8 @@
 const jwt = require('jsonwebtoken');
 const bearerToken = require('express-bearer-token');
-const { jwtConfig } = require('../config');
-const { User } = require('../db/models');
+const { jwtConfig: { secret, expiresIn} } = require('../../config');
+const { User } = require('../../db/models');
 
-const { secret, expiresIn } = jwtConfig;
 
 const getUserToken = (user) => {
     const userDataForToken = {
@@ -18,16 +17,6 @@ const getUserToken = (user) => {
 
     return token;
 };
-
-// const validateEmailAndPassword = [
-//     check("email")
-//         .exists({ checkFalsy: true })
-//         .isEmail()
-//         .withMessage("Please provide a valid email."),
-//     check("password")
-//         .exists({ checkFalsy: true })
-//         .withMessage("Please provide a password."),
-// ];
 
 const restoreUser = (req, res, next) => {
     const { token } = req;
@@ -63,6 +52,5 @@ const requireAuth = [bearerToken(), restoreUser]
 module.exports = {
     getUserToken,
     requireAuth,
-    // validateEmailAndPassword
 };
 

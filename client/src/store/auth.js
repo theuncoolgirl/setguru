@@ -3,12 +3,14 @@ const UPDATE_PASSWORD_VALUE = 'setlistfm/auth/UPDATE_PASSWORD_VALUE';
 const UPDATE_TOKEN_VALUE = 'setlistfm/auth/UPDATE_TOKEN_VALUE';
 const UPDATE_USERNAME_VALUE = 'setlistfm/auth/UPDATE_USERNAME_VALUE';
 const DELETE_TOKEN = 'setlistfm/auth/DELETE_TOKEN';
-const POP_DEMO_USER = 'setlistfm/auth/POP_DEMO_USER'
+const POP_DEMO_USER = 'setlistfm/auth/POP_DEMO_USER';
+const UPDATE_VALIDATION_ERRORS = 'setlistfm/auth/UPDATE_VALIDATION_ERRORS';
 
 const updateEmailValue = value => ({ type: UPDATE_EMAIL_VALUE, value });
 const updatePasswordValue = value => ({ type: UPDATE_PASSWORD_VALUE, value });
 const updateTokenValue = value => ({ type: UPDATE_TOKEN_VALUE, value });
 const updateUsernameValue = value => ({ type: UPDATE_USERNAME_VALUE, value });
+const updateValidationErrors = value => ({ type: UPDATE_VALIDATION_ERRORS, value });
 const deleteToken = () => ({ type: DELETE_TOKEN });
 const popDemoUser = () => ({ type: POP_DEMO_USER });
 
@@ -26,6 +28,7 @@ const tryLogin = () => {
         // get email and password from the state
         const { auth: { email, password } } = getState();
         // AJAX call PUT request to check login information
+
         const response = await fetch('/api/session', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -37,8 +40,14 @@ const tryLogin = () => {
                 dispatch(updateTokenValue(data.token));
                 window.localStorage.setItem('SETLIST_TOKEN', data.token);
                 window.localStorage.setItem('USERID', data.userId)
-            } else {
-                console.error('Bad response');
+            } 
+            else {
+                const data = await response.json();
+                const errors = data.errors.map(error => {
+                    return error.msg
+                });
+                console.log(errors);
+                dispatch(updateValidationErrors(errors));
             }
         } catch (e) {
             console.error(e);
@@ -61,7 +70,12 @@ const trySignup = () => {
                 await response.json();
                 window.location.href = '/login';
             } else {
-                console.error('Bad response');
+                const data = await response.json();
+                const errors = data.errors.map(error => {
+                    return error.msg
+                });
+                console.log(errors);
+                dispatch(updateValidationErrors(errors));
             }
         } catch (e) {
             console.error(e);
@@ -116,6 +130,11 @@ function reducer(state = initialState, action) {
                 ...state,
                 email: 'demo@example.com',
                 password: 'password'
+            }
+        case UPDATE_VALIDATION_ERRORS:
+            return {
+                ...state,
+                errors: action.value
             }
         default:
             return state;
