@@ -1,6 +1,7 @@
 # setGuru
 
 *By Erin Shields*
+
 Check out a live version of **setGuru** here: [setGuru Live](http://setguru.herokuapp.com)
 
 setGuru is a clone of the website setlist.fm, a site where users can view setlists from various live shows/concerts. The backend of setGuru is built with Express.js with a PostgreSQL database. Frontend rendering is handled with React/Redux.
@@ -15,8 +16,8 @@ setGuru is a clone of the website setlist.fm, a site where users can view setlis
 
 setGuru is a full-stack web app that allows users to make an account, find, save, and comment on the setlists of concerts they've attended, as well as view additional information about the relevant artists.
 
-**setGuru in Action**
-Insert GIF of functionality here (login => homepage => search => search results => setlist details => add to list => add comment => view lists)
+### setGuru in Action:
+![seGuru in Action](./client/public/SetGuru-Demo-20210104.gif)
 
 ## Installation
 1. Clone this repository:
