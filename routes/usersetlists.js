@@ -12,7 +12,7 @@ router.post(
         const userSetlist = await Setlist.create({
             userId,
             setListId: setlistId,
-            comments: "none",
+            comments: "I was there!",
             isStarred: false
         });
         res.status(201).json(userSetlist);
