@@ -88,7 +88,6 @@ const getComments = () => {
         try {
             if (response.status >= 200 && response.status < 400) {
                 const data = await response.json();
-                console.log("COMMENT DATA: ", data);
                 const comments = data.comments.map(comment => {
                     return {
                         userId: comment.User.id,

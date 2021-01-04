@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { actions, thunks } from '../store/setlist';
 import { thunks as userSetlistsThunks } from '../store/userSetlists';
 import { actions as userSetlistsActions } from '../store/userSetlists';
-import { Accordion, AccordionDetails, AccordionSummary, Button, Grid, Paper, TextField, Typography } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Button, Grid, Paper, TextField, Typography } from '@material-ui/core';
 import useStyles from '../styles.js';
 
 const SetlistDetail = (props) => {
     const classes = useStyles();
+
+    const [commentUpdated, setCommentUpdated] = useState(false);
 
     const {
         updateSetlistidValue,
@@ -30,7 +31,16 @@ const SetlistDetail = (props) => {
         getSetlist(setlistId);
         setlistCheck();
         getComments();
-    }, [setlistId, updateSetlistidValue, getSetlist, userSetlists, setlistCheck, hasCurrentSetlist, getComments]);
+    }, [
+        setlistId, 
+        updateSetlistidValue, 
+        getSetlist, 
+        userSetlists, 
+        setlistCheck, 
+        hasCurrentSetlist, 
+        getComments,
+        commentUpdated
+    ]);
 
     const handleSetlistDelete = () => {
         deleteSetlist();
@@ -48,6 +58,12 @@ const SetlistDetail = (props) => {
                 }
             }
         }
+    }
+
+    const handleCommentUpdate = () => {
+        props.addComment();
+        props.getComments();
+        setCommentUpdated(!commentUpdated);
     }
 
     if (props.setlist) {
@@ -85,7 +101,7 @@ const SetlistDetail = (props) => {
                                 <div>
                                     <ol>
                                         {songs.map((song, i) => (
-                                            <li style={{ textAlign: "left" }} key={i}>{song.name}</li>
+                                             <li style={{ textAlign: "left" }} key={i}>{song.name}</li>
                                         ))}
                                     </ol>
                                 </div>
@@ -103,7 +119,6 @@ const SetlistDetail = (props) => {
                                     <div>
                                         <Typography className={classes.accordionHeading}>Add or Update Your Comments</Typography>
                                         <TextField id="filled-textarea"
-                                            // label="Comment"
                                             defaultValue={findUserComment()}
                                             multiline
                                             rows={3}
@@ -111,71 +126,38 @@ const SetlistDetail = (props) => {
                                             variant="filled"
                                             onChange={props.updateNewCommentValue} />
                                         <div>
-                                            <Button className={classes.button} variant="contained" color="primary" onClick={props.addComment}>Submit Comment</Button>
+                                            <Button className={classes.button} variant="contained" color="primary" onClick={handleCommentUpdate}>Submit Comment</Button>
                                         </div>
-                                        {/* <InputBase className={classes.search} id="searchBar" placeholder="  Artist, Venue, Location..." onChange={props.updateSearchValue} /> */}
+                                        {commentUpdated ? (
+                                        <div>
+                                            <Typography className={classes.accordionHeading}>Comment updated! Please refresh comments below.</Typography>
+                                        </div>
+                                        ) : null}
                                     </div>
                                 </Paper>
                                 : null}
-                            {/* <Paper className={classes.detailCard}>
-                                <Accordion className={classes.accordion}>
-                                    <AccordionSummary
-                                        expandIcon={<ExpandMoreIcon />}
-                                        aria-controls="panel1a-content"
-                                        id="panel1a-header"
-                                        onClick={props.getComments}
-                                    >
-                                        <Typography className={classes.accordionHeading}>Comments</Typography>
-                                    </AccordionSummary>
-                                    {props.comments && props.comments.length > 0 ?
-                                        (<div>
-                                            {props.comments.map((comment, i) => (
-                                                <AccordionDetails key={i}>
-                                                    <Typography>
-                                                        {comment.comment} by {comment.username}
-                                                    </Typography>
-                                                </AccordionDetails>
-                                            ))}
-                                        </div>) : (
-                                            <div>
-                                                <AccordionDetails>
-                                                    <Typography>
-                                                        No comments yet! Been to this show? Add your comment in the form above.
-                                                    </Typography>
-                                                </AccordionDetails>
-                                            </div>
-                                        )}
-                                </Accordion>
-                            </Paper> */}
+                        
                             <Paper className={classes.detailCard}>
-                                <Accordion className={classes.accordion}>
-                                    <AccordionSummary
-                                        expandIcon={<ExpandMoreIcon />}
-                                        aria-controls="panel1a-content"
-                                        id="panel1a-header"
-                                        onClick={props.getComments}
-                                    >
-                                        <Typography className={classes.accordionHeading}>Comments</Typography>
-                                    </AccordionSummary>
+                                <div>
+                                    <Typography className={classes.accordionHeading}>Comments</Typography>
+                                </div>
                                     {props.comments && props.comments.length > 0 ?
                                         (<div>
                                             {props.comments.map((comment, i) => (
-                                                <AccordionDetails key={i}>
                                                     <Typography>
-                                                        {comment.comment} by {comment.username}
+                                                        "{comment.comment}" by {comment.username}
                                                     </Typography>
-                                                </AccordionDetails>
                                             ))}
                                         </div>) : (
                                             <div>
-                                                <AccordionDetails>
                                                     <Typography>
                                                         No comments yet! Been to this show? Add your comment in the form above.
                                                     </Typography>
-                                                </AccordionDetails>
                                             </div>
                                         )}
-                                </Accordion>
+                                <div>
+                                    <Button className={classes.button} variant="contained" color="primary" onClick={handleCommentUpdate}>Refresh</Button>
+                                </div>
                             </Paper>
                         </Paper>
                     </Grid>
