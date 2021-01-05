@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Container, CssBaseline } from '@material-ui/core';
-
 import Homepage from './components/Homepage';
 import LoginForm from './components/LoginForm';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -11,6 +10,7 @@ import SignupForm from './components/SignupForm';
 import SearchResults from './components/SearchResults';
 import SetlistDetail from './components/SetlistDetail';
 import UserProfile from './components/UserProfile';
+import NotFound from './components/NotFound';
 import useStyles from './styles.js';
 
 function App(props) {
@@ -29,6 +29,7 @@ function App(props) {
                         <ProtectedRoute isLoggedIn={props.token} exact path="/user/:userId" render={props => <UserProfile {...props} />} />
                         <ProtectedRoute isLoggedIn={props.token} path="/search/:query/:page" render={props => <SearchResults {...props} />} />
                         <ProtectedRoute isLoggedIn={props.token} path="/setlist/:setlistId" render={props => <SetlistDetail {...props} />} />
+                        <ProtectedRoute isLoggedIn={props.token} path="/404" render={props => <NotFound {...props} />} />
                     </Switch>
                 </Container>
                 <Container>
