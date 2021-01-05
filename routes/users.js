@@ -15,7 +15,6 @@ router.post(
         if (!errors.isEmpty()) {
             return res.status(422).json({ errors: errors.array() })
         }
-        
         const { 
             username,
             email,
@@ -28,7 +27,6 @@ router.post(
             email,
             hashedPassword
         });
-
         res.status(201).json({
             user: { id: user.id }
         });
