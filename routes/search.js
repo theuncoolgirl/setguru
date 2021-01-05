@@ -14,8 +14,9 @@ const setlistfmClient = new setlistfm({
 
 const searchResults = (searchTerm, page = 1) => {
     return setlistfmClient.searchSetlists({
-        artistName: searchTerm
-    }, page)
+        artistName: searchTerm,
+        p: page
+    })
         .then(function (results) {
             return results
         })

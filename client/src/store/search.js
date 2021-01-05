@@ -24,9 +24,6 @@ const getSetlists = () => {
             if (response.status >= 200 && response.status < 400) {
                 const data = await response.json();
                 dispatch(receiveSetlists(data));
-                // TODO: REDIRECT TO SEARCH RESULTS PAGE
-                // window.location.href = '/search';
-                // TODO: THINK ABOUT MAKING SEARCH RESULTS DYNAMIC
             } else {
                 console.error('Bad response');
             }
