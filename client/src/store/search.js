@@ -29,6 +29,7 @@ const getSetlists = () => {
             }
         } catch (e) {
             console.error(e);
+            window.location.href = '/404';
         }
     }
 }
