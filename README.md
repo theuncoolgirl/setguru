@@ -4,7 +4,7 @@
 
 Check out a live version of **setGuru** here: [setGuru Live](http://setguru.herokuapp.com)
 
-setGuru is a clone of the website Setlist.fm, a site where users can view setlists from various live shows/concerts. The backend of setGuru is built with Express.js with a PostgreSQL database. Frontend rendering is handled with React/Redux. The app leverages the [Setlist.fm API](https://api.setlist.fm/docs/1.0/index.html) to source, search, and display setlist data. 
+setGuru is a clone of the website Setlist.fm, a site where users can view setlists from various live shows/concerts. The backend of setGuru is built with [Express.js](https://expressjs.com/) and connected to a [PostgreSQL](https://www.postgresql.org/) database using [Sequelize](https://sequelize.org/). Frontend rendering is handled with [React](https://reactjs.org/)/[Redux](https://redux.js.org/). The app leverages the [Setlist.fm API](https://api.setlist.fm/docs/1.0/index.html) to source, search, and display setlist data. 
 
 **Table of Contents**
 * [Technologies](#technologies)
@@ -14,8 +14,7 @@ setGuru is a clone of the website Setlist.fm, a site where users can view setlis
 * [Backend Overview](#backend-overview)
 * [Frontend Overview](#frontend-overview)
 * [User Authorization](#user-authentication)
-* [Known Bug Log](#known-bug-log)
-* [Final Thoughts & Next Steps](#final-thoughts-and-next-steps)
+* [Feature Backlog](#feature-backlog)
 
 ## Technologies
 * React
@@ -23,11 +22,12 @@ setGuru is a clone of the website Setlist.fm, a site where users can view setlis
 * Express.js
 * Sequelize
 * PostgreSQL
+* Material UI
 * Heroku
 
 ## setGuru Overview
 
-setGuru is a full-stack web app that allows users to make an account, find, save, and comment on the setlists of concerts they've attended, as well as view additional information about the relevant artists.
+setGuru is a full-stack web app that allows users to make an account, and find, save, and comment on the setlists of concerts they've attended, as well as view additional information about the relevant artists.
 
 > Curent Status: Ongoing Development
 
@@ -58,7 +58,7 @@ setGuru is a full-stack web app that allows users to make an account, find, save
     ```
 
 ## Application Architecture
-setGuru is a fullstack application. The majority of its logic occurs within the frontend's Redux store, along with interactions with the Setlist.fm. For the styling of its frontend React components, setGuru utilizes the Material UI framework.
+setGuru is a fullstack application. The majority of its logic occurs within the frontend's Redux store, along with interactions with the Setlist.fm. For the styling of its frontend React components, setGuru utilizes the [Material UI](https://material-ui.com/) framework.
 
 The backend is built with [Express](https://expressjs.com/) and serves the front end, fetches data from the [PostgreSQL](https://www.postgresql.org/) database with [Sequelize](https://sequelize.org/master/manual/model-querying-basics.html), responds to frontend requests, and acts as an intermediary to serve setlist data from the [Setlist.fm API](https://api.setlist.fm/docs/1.0/index.html) via a customized version of the [setlistfm-js](https://www.npmjs.com/package/setlistfm-js) library. 
 
@@ -87,7 +87,7 @@ const searchResults = (searchTerm, page = 1) => {
 }
 ```
 
-The `searchResults` helper function is then used in `PUT` requests to the `/api/search/` route, which acts as an intermediary to make the calls to the Setlist.fm API on the backend:
+The `searchResults` helper function is then used within `PUT` requests to the `/api/search/` route, which acts as an intermediary to make the calls to the Setlist.fm API on the backend:
 
 ```js
 router.put('/', handler(async (req, res) => {
@@ -104,7 +104,7 @@ router.put('/', handler(async (req, res) => {
 ```
 
 ## Frontend Overview
-On the frontend, setGuru utilizes React as its core logic and component architecture, along with Redux and the react-redux library to manage state and to make requests to the backend server to fetch data. Some hooks, such as the `useEffect()` hook are employed to allow for functional components. Future refactoring goals include utilizing additional hooks to avoid prop threading, along with other optimizations. 
+On the frontend, setGuru utilizes React as its core logic and component architecture, along with Redux and the `react-redux` library to manage state and to make requests to the backend server to fetch data. Some hooks, such as the `useEffect()` hook are employed to allow for functional components. Future refactoring goals include utilizing additional hooks to avoid prop threading, along with other optimizations. 
 
 The Redux store is used to manage information on tokens for authentication purpoess, search queries, and both setlist search results and specific details on setlists when the user is brought to a Setlist Detail Page. Pagination is employed on the Search Results page to limit the amount of data fetched from the Setlist.fm API and stored in the Redux store at any given moment. 
 
@@ -180,7 +180,7 @@ export default reducer;
 ```
 
 ### Material UI
-setGuru also employed the Material UI framework for elegant styling and responsive components. Material UI's `makeStyles` hook allows for simple, optimized component stylings that allow for customization and cohesion in the styling across components, with minimal code, as they can be consolidated into a single instance of the hook as since in the `/client/src/styles.js` file. 
+setGuru also employs the Material UI framework for elegant styling and responsive components. Material UI's `makeStyles` hook allows for simple, optimized component stylings that allow for customization and cohesion across components, with minimal code, as they can be consolidated into a single instance of the hook, found in the `/client/src/styles.js` file. 
 
 ```js
 import { fade, makeStyles } from '@material-ui/core/styles';
@@ -204,7 +204,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     // code removed for brevity
-    
+
 }));
 
 export default useStyles;
@@ -213,7 +213,7 @@ export default useStyles;
 ## User Authentication
 Unauthroized users are only able to view the Login and Signup pages. To search for and view setlists, and to add them to their own collection of setlists, they must create an account and log in (or utilize the demo user login). 
 
-When a user submits information on the `/signup` page, a fetch POST request is made to the Express backend `/api/users/` route, and the data is first validated.The `express-validator` library is used to assist in validating user inputs as well as serving up custom validation error messaging that is passed and visible to the user on the frontend should there be any errors. If there are no errors, the submitted password is hashed using the Bcrypt hasing algorithm, and a new user object is created using Sequelize to then save to the `Users` table in the PostgreSQL database. Login and Signup routes also utilize the `express-async-handler` library to assist help manage authentication and validation processes.
+When a user submits information on the `/signup` page, a POST request is made to the Express backend's `/api/users/` route, and the data is first validated. The `express-validator` library is used to assist in validating user inputs as well as serving up custom validation error messaging that is passed and visible to the user on the frontend should there be any errors. If there are no errors, the submitted password is hashed using the Bcrypt hasing algorithm, and a new user object is created using Sequelize to then save to the `Users` table in the PostgreSQL database. Login and Signup routes also utilize the `express-async-handler` library to assist help manage authentication and validation processes.
 
 ```js
 const bcrypt = require('bcryptjs');
@@ -251,7 +251,7 @@ router.post(
     }));
 ```
 
-After signup, the user will then need to log in in order to access the rest of setGuru. In a similar fashion to `/signup`, on the `/login` page, when a user submits their login credentials, they will first be validated with the help of the `express-validator` library. Then, if a user is located wiht the same email in the PostgreSQl database, and the credentials match what is on file, an JSON Web Token will be generated and added to the Redux store, which allows for access to the protected portions of the site, and persists until the user logs out. On the backend, the `jsonwebtoken` and `express-bearer-token` libraries are utilized to facilitate the generation of the authorization token. 
+After signup, the user will then need to log in in order to access the rest of setGuru. In a similar fashion to `/signup`, on the `/login` page, when a user submits their login credentials, they will first be validated with the help of the `express-validator` library. Then, if a user is located wiht the same email in the PostgreSQl database, and the credentials match what is on file, a JSON Web Token will be generated and added to the Redux store, allowing access to the protected portions of the site (and persists until the user logs out). On the backend, the `jsonwebtoken` and `express-bearer-token` libraries are utilized to facilitate the generation of the authorization token. 
 
  ```js
  const express = require('express');
@@ -302,11 +302,11 @@ router.put(
 module.exports = router;
 ``` 
 
-## Known Bug Log
-
-## Final Thoughts and Next Steps
-* Spotify integration
-* Suggestive search implementation
+## Feature Backlog
+* Spotify integration to generate playlists based off of setlists or most-often played live songs. 
+* Suggestive/autocomplete search implementation
+* Refactor React components to utilize more React/Redux hooks (optimization)
+* Improve stylistic elements
 
 
 
