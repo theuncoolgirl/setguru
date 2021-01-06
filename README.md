@@ -58,7 +58,7 @@ setGuru is a full-stack web app that allows users to make an account, and find, 
     ```
 
 ## Application Architecture
-setGuru is a fullstack application. The majority of its logic occurs within the frontend's Redux store, along with interactions with the Setlist.fm. For the styling of its frontend React components, setGuru utilizes the [Material UI](https://material-ui.com/) framework.
+setGuru is a fullstack application. The majority of its logic occurs within the frontend's Redux store, along with interactions with the Setlist.fm API. For the styling of its frontend React components, setGuru utilizes the [Material UI](https://material-ui.com/) framework.
 
 The backend is built with [Express](https://expressjs.com/) and serves the front end, fetches data from the [PostgreSQL](https://www.postgresql.org/) database with [Sequelize](https://sequelize.org/master/manual/model-querying-basics.html), responds to frontend requests, and acts as an intermediary to serve setlist data from the [Setlist.fm API](https://api.setlist.fm/docs/1.0/index.html) via a customized version of the [setlistfm-js](https://www.npmjs.com/package/setlistfm-js) library. 
 
